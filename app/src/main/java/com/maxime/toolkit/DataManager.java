@@ -1,6 +1,6 @@
-package com.chikeandroid.toolkit;
+package com.maxime.toolkit;
 
-import com.chikeandroid.toolkit.objects.Product;
+import com.maxime.toolkit.objects.Product;
 
 /**
  * Created by Maxime on 2017-10-04.

@@ -1,4 +1,4 @@
-package com.chikeandroid.toolkit.objects;
+package com.maxime.toolkit.objects;
 
 import android.os.Parcel;
 import android.os.Parcelable;

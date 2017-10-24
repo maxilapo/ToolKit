@@ -1,4 +1,4 @@
-package com.chikeandroid.toolkit;
+package com.maxime.toolkit;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.chikeandroid.toolkit.objects.Product;
+import com.maxime.toolkit.objects.Product;
 
 public class ProductDetailPage extends AppCompatActivity  implements View.OnClickListener{
 

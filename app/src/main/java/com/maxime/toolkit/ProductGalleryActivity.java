@@ -1,4 +1,4 @@
-package com.chikeandroid.toolkit;
+package com.maxime.toolkit;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.chikeandroid.toolkit.objects.Product;
+import com.maxime.toolkit.objects.Product;
 
 /**
  * Created by Maxime

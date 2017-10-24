@@ -1,4 +1,4 @@
-package com.chikeandroid.toolkit;
+package com.maxime.toolkit;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
