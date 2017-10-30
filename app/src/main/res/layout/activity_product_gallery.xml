@@ -11,7 +11,7 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:background="@color/colorPrimaryDark"
         android:orientation="horizontal">
 
@@ -20,24 +20,24 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:scaleType="center"
-            app:srcCompat="@mipmap/ic_cart"/>
+            android:scaleType="fitCenter"
+            app:srcCompat="@mipmap/ic_filter_white"/>
 
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:scaleType="center"
-            app:srcCompat="@mipmap/ic_filter"/>
+            android:scaleType="fitCenter"
+            app:srcCompat="@mipmap/ic_user_white"/>
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:scaleType="center"
-            app:srcCompat="@mipmap/ic_profil"/>
+            android:scaleType="fitCenter"
+            app:srcCompat="@mipmap/ic_cart_white"/>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

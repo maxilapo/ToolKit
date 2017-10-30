@@ -32,12 +32,10 @@ public class ProductDetailPage extends AppCompatActivity  implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
 
-
         currentProduct = getIntent().getParcelableExtra(EXTRA_SPACE_PHOTO);
 
         setupUI();
         initListeners();
-
 
         Glide.with(this)
                 .load(currentProduct.getImageUrl())
