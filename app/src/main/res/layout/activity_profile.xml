@@ -11,44 +11,61 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="Login"
+        android:text="Connexion"
         android:textColor="@color/colorLightBlack"
         android:textSize="24sp"
         android:textStyle="bold"/>
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/login_courriel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="25dp"
         android:layout_marginStart="25dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Email"/>
+        android:hint="Courriel"
+        android:inputType="textEmailAddress"/>
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/login_Password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="25dp"
         android:layout_marginStart="25dp"
         android:ems="10"
+        android:hint="Mot de passe"
         android:inputType="textPassword"/>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="Sign In"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:text="Inscription"
         android:textColor="@color/colorLightBlack"
         android:textSize="24sp"
         android:textStyle="bold"/>
 
-    <TextView
-        android:id="@+id/textView2"
+    <EditText
+        android:id="@+id/editText5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"/>
+        android:layout_marginEnd="25dp"
+        android:layout_marginStart="25dp"
+        android:ems="10"
+        android:hint="Courriel"
+        android:inputType="textEmailAddress"/>
+
+    <EditText
+        android:id="@+id/editText6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="25dp"
+        android:layout_marginStart="25dp"
+        android:ems="10"
+        android:hint="Mot de passe"
+        android:inputType="textPassword"/>
+
 </LinearLayout>
 

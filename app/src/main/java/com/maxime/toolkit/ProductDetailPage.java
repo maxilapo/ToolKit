@@ -18,6 +18,8 @@ public class ProductDetailPage extends AppCompatActivity  implements View.OnClic
 
     public static final String EXTRA_SPACE_PHOTO = "ProductDetailPage.SPACE_PHOTO";
 
+    private DataManager _dataManager;
+
     private Product currentProduct;
 
     private TextView mTitleTextView;
@@ -31,6 +33,8 @@ public class ProductDetailPage extends AppCompatActivity  implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
+
+        _dataManager = new DataManager();
 
         currentProduct = getIntent().getParcelableExtra(EXTRA_SPACE_PHOTO);
 
@@ -85,6 +89,9 @@ public class ProductDetailPage extends AppCompatActivity  implements View.OnClic
         mDescriptionTextView.setText(currentProduct.getDescription());
         mPriceTextView.setText(String.format("%.2f$", currentProduct.getPrice()));
         mRatingTextView.setText(currentProduct.getRatingStar());
+
+
+        _dataManager.getUserName();
 
     }
 

@@ -1,6 +1,12 @@
 package com.maxime.toolkit;
 
+import android.util.Log;
+
 import com.maxime.toolkit.objects.Product;
+
+import java.util.concurrent.ExecutionException;
+
+import okhttp3.OkHttpClient;
 
 /**
  * Created by Maxime on 2017-10-04.
@@ -8,7 +14,50 @@ import com.maxime.toolkit.objects.Product;
 
 public class DataManager {
 
-    public static Product[] getAllProducts() {
+    private RequestManager _requestManager;
+
+    private OkHttpClient httpClient;
+    String port = "6969";
+    String GET = "GET";
+    String POST = "POST";
+
+    public DataManager() {
+        _requestManager = new RequestManager();
+    }
+
+    public String getUserName() {
+
+        try {
+
+            String[] jsonFriend = _requestManager.httpRequest(GET, "products");
+            Log.d("max_DataManager", "REQUEST RESULT :::: " + jsonFriend[0].toString());
+
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        //this.initRequestManager();
+
+        return "lla";
+
+    }
+
+
+
+    public Product[] getAllProducts() {
+
+
+        try {
+            String[] jsonFriend = _requestManager.httpRequest(GET, "products");
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
 
         Product product1 = new Product(1, "Fucking esti de long long title", "Description1", 22.50, "http://i.imgur.com/zuG2bGQ.jpg");
 

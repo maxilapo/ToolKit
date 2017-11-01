@@ -3,6 +3,7 @@ package com.maxime.toolkit;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,8 @@ import com.maxime.toolkit.objects.Product;
 
 public class ProductGalleryActivity extends AppCompatActivity {
 
+    private DataManager _dataManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,9 +34,9 @@ public class ProductGalleryActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
 
+        _dataManager = new DataManager();
 
-
-        ProductGalleryActivity.ImageGalleryAdapter adapter = new ProductGalleryActivity.ImageGalleryAdapter(this, DataManager.getAllProducts());
+        ProductGalleryActivity.ImageGalleryAdapter adapter = new ProductGalleryActivity.ImageGalleryAdapter(this, _dataManager.getAllProducts());
         recyclerView.setAdapter(adapter);
     }
 

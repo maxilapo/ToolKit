@@ -13,6 +13,7 @@ public class User
     }
 
     private User() {
+
     }
 
     /*public static User getInstance() {
