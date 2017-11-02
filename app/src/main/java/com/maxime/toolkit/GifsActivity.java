@@ -22,8 +22,8 @@ public class GifsActivity extends AppCompatActivity {
         Glide.with(this)
                 .load("http://i.imgur.com/Vth6CBz.gif")
                 .asBitmap()
-                .placeholder(R.drawable.productplaceholder)
-                .error(R.drawable.productplaceholder)
+                .placeholder(R.mipmap.productplaceholder400)
+                .error(R.mipmap.productplaceholder400)
                 .into(gifImageView);
     }
 

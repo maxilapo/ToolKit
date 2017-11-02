@@ -44,7 +44,7 @@ public class ProductDetailPage extends AppCompatActivity  implements View.OnClic
         Glide.with(this)
                 .load(currentProduct.getImageUrl())
                 .asBitmap()
-                .error(R.drawable.productplaceholder)
+                .error(R.mipmap.productplaceholder400)
                 .listener(new RequestListener<String, Bitmap>() {
 
                     @Override

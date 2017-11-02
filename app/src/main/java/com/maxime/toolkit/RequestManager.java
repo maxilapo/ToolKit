@@ -68,6 +68,7 @@ public class RequestManager
     }
 
     public String[] httpRequest(String method, String action) throws ExecutionException, InterruptedException {
+
         return new HttpRequest().execute("", method, action).get();
     }
 }

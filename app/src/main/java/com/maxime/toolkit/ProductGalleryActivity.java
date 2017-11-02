@@ -71,7 +71,7 @@ public class ProductGalleryActivity extends AppCompatActivity {
 
             Glide.with(mContext)
                     .load(produit.getImageUrl())
-                    .placeholder(R.drawable.productplaceholder)
+                    .placeholder(R.mipmap.productplaceholder400)
                     .into(imageView);
         }
 
