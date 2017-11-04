@@ -16,7 +16,7 @@ import com.maxime.toolkit.objects.Product;
 
 public class ProductDetailPage extends AppCompatActivity  implements View.OnClickListener{
 
-    public static final String EXTRA_SPACE_PHOTO = "ProductDetailPage.SPACE_PHOTO";
+    public static final String EXTRA_PRODUCT = "ProductDetailPage.Product";
 
     private DataManager _dataManager;
 
@@ -36,7 +36,12 @@ public class ProductDetailPage extends AppCompatActivity  implements View.OnClic
 
         _dataManager = new DataManager();
 
-        currentProduct = getIntent().getParcelableExtra(EXTRA_SPACE_PHOTO);
+        Product produit = getIntent().getParcelableExtra(EXTRA_PRODUCT);
+
+        //To get more information
+        currentProduct = _dataManager.getProductDetails(produit.getID());
+
+
 
         setupUI();
         initListeners();
@@ -61,13 +66,6 @@ public class ProductDetailPage extends AppCompatActivity  implements View.OnClic
 
                         return false;
                     }
-
-                   /* public void onPalette(Palette palette) {
-                        if (null != palette) {
-                            ViewGroup parent = (ViewGroup) mImageView.getParent().getParent();
-                            //parent.setBackgroundColor(palette.getDarkVibrantColor(Color.GRAY));
-                        }
-                    }*/
                 })
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(mProductImage);
@@ -91,8 +89,6 @@ public class ProductDetailPage extends AppCompatActivity  implements View.OnClic
         mRatingTextView.setText(currentProduct.getRatingStar());
 
 
-        _dataManager.getUserName();
-
     }
 
     private void initListeners() {
@@ -109,7 +105,7 @@ public class ProductDetailPage extends AppCompatActivity  implements View.OnClic
             //https://stackoverflow.com/questions/920306/sending-data-back-to-the-main-activity-in-android
 
             Intent intent = new Intent(this, RatingPage.class);
-                    //intent.putExtra(ProductDetailPage.EXTRA_SPACE_PHOTO, produit);
+
                     startActivity(intent);
 
         }

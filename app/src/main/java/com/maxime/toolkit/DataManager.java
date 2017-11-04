@@ -35,32 +35,55 @@ public class DataManager {
         try {
 
             String[] jsonFriend = _requestManager.httpRequest(GET, "products");
-            //Log.d("max_DataManager", "REQUEST RESULT :::: " + jsonFriend[0].toString());
 
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        //this.initRequestManager();
-
         return "lla";
-
     }
 
+
+    public Product getProductDetails(int _id) {
+
+        String[] jsonResult = new String[1];
+        String url = "product/" + String.valueOf(_id);
+        Product produit;
+
+        try {
+            jsonResult = _requestManager.httpRequest(GET, url);
+        }
+        catch (ExecutionException e) { e.printStackTrace();}
+        catch (InterruptedException e) { e.printStackTrace();}
+
+        try {
+            // Json is in an array, deal with it. 😎
+            JSONArray jsonProductList = new JSONArray(jsonResult[0]);
+            JSONObject jsonProduct = jsonProductList.getJSONObject(0);
+
+            int id = jsonProduct.getInt("id");
+            String name = jsonProduct.getString("name");
+            String description_sale = jsonProduct.getString("description_sale");
+            String description = jsonProduct.getString("description");
+            double list_price = jsonProduct.getDouble("list_price");
+            double rating_last_value = jsonProduct.getDouble("rating_last_value");
+
+            return new Product(id, name, description_sale, list_price, description, rating_last_value);
+        }
+        catch (JSONException e) {e.printStackTrace();}
+
+        return null;
+    }
 
 
     public Product[] getAllProducts() {
 
         String[] jsonResult = new String[1];
-
-        ArrayList<Product> listProduct = new ArrayList<Product>();
+        ArrayList<Product> productArray = new ArrayList<Product>();
 
         try {
             jsonResult = _requestManager.httpRequest(GET, "products");
-
-
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -68,53 +91,34 @@ public class DataManager {
         }
 
         try {
-
             JSONArray jsonProductList = new JSONArray(jsonResult[0]);
-
-
-            for(int i=0; i<jsonProductList.length(); i++){
-
+            for(int i=0; i<jsonProductList.length(); i++)
+            {
                 try {
                     int id = jsonProductList.getJSONObject(i).getInt("id");
                     String name = jsonProductList.getJSONObject(i).getString("name");
-                    double list_price = jsonProductList.getJSONObject(i).getDouble("list_price");
                     String description_sale = jsonProductList.getJSONObject(i).getString("description_sale");
                     String description = jsonProductList.getJSONObject(i).getString("description");
+                    double list_price = jsonProductList.getJSONObject(i).getDouble("list_price");
                     double rating_last_value = jsonProductList.getJSONObject(i).getDouble("rating_last_value");
 
-
-                    if (list_price == Double.NaN || description == null || description_sale == null)
+                    if (list_price == Double.NaN || description == null || name == null || description_sale == null)
                         continue;
 
-                    Product tempProduct = new Product(id, name, description_sale, list_price, description);
-
-                    listProduct.add(tempProduct);
+                    Product tempProduct = new Product(id, name, description_sale, list_price, description, rating_last_value);
+                    productArray.add(tempProduct);
                 }
                 catch (JSONException e) {
-
+                    e.printStackTrace();
                 }
             }
         }
         catch (JSONException e) {
             e.printStackTrace();
         }
-/*
-        Product product1 = new Product(1, "Fucking esti de long long title", "Description1", 22.50, "http://i.imgur.com/zuG2bGQ.jpg");
 
-        Product product2 = new Product(2, "Titre2", "Description2", 55.99, "http://i.imgur.com/ovr0NAF.jpg");
+        Product[] productList = productArray.toArray(new Product[productArray.size()]);
 
-        Product product3 = new Product(3, "Titre3", "Description3", 89.99, "http://i.imgur.com/n6RfJX2.jpg");
-
-        Product product4 = new Product(4, "Titre4", "Description4", 28.99, "http://i.imgur.com/qpr5LR2.jpg");
-
-        Product product5 = new Product(5, "Titre5 Titre5 Titre5 Titre5 Titre5", "Description5", 49.99, "http://i.imgur.com/qpr5LR2.jpg");
-
-        Product product6 = new Product(6, "Titre6", "Description6", 69.99, "http://i.imgur.com/qpr5LR2.jpg");
-
-        Product[] listProduct = {product1, product2, product3, product4, product5, product6};*/
-
-        Product[] suluuu = listProduct.toArray(new Product[listProduct.size()]);
-
-        return suluuu;
+        return productList;
     }
 }

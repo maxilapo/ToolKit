@@ -7,6 +7,7 @@ import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,6 @@ public class ProductGalleryActivity extends AppCompatActivity {
             Context context = parent.getContext();
             LayoutInflater inflater = LayoutInflater.from(context);
 
-            // Inflate the layout
             View photoView = inflater.inflate(R.layout.item_photo, parent, false);
 
             ImageGalleryAdapter.MyViewHolder viewHolder = new ImageGalleryAdapter.MyViewHolder(photoView);
@@ -117,11 +117,12 @@ public class ProductGalleryActivity extends AppCompatActivity {
 
                 int position = getAdapterPosition();
                 if(position != RecyclerView.NO_POSITION) {
-                    //SpacePhoto spacePhoto = mSpacePhotos[position];
+
                     Product produit = mListProduct[position];
 
                     Intent intent = new Intent(mContext, ProductDetailPage.class);
-                    intent.putExtra(ProductDetailPage.EXTRA_SPACE_PHOTO, produit);
+                    Log.d("max_clickOnItem", "ID = " + produit.getID());
+                    intent.putExtra(ProductDetailPage.EXTRA_PRODUCT, produit);
                     startActivity(intent);
                 }
             }
@@ -129,12 +130,10 @@ public class ProductGalleryActivity extends AppCompatActivity {
 
         private Product[] mListProduct;
 
-        //private SpacePhoto[] mSpacePhotos;
         private Context mContext;
 
         public ImageGalleryAdapter(Context context, Product[] _listProduct) {
             mContext = context;
-            //mSpacePhotos = spacePhotos;
             mListProduct = _listProduct;
         }
     }

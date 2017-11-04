@@ -9,12 +9,12 @@ import android.os.Parcelable;
 
 public class Product implements Parcelable{
 
-    int id;
+    int    id;
     String title;
     String description;
     String imageURL;
     double price;
-    int    rating = 4;
+    double rating = 4;
 
     /*********************************** Constructor ************************************/
 
@@ -39,6 +39,15 @@ public class Product implements Parcelable{
         this.imageURL = _imageURL;
     }
 
+    public Product(int _id, String _title, String _description, double _price, String _imageURL, double _rating) {
+        this.id = _id;
+        this.title = _title;
+        this.description = _description;
+        this.price = _price;
+        this.imageURL = _imageURL;
+        this.rating = _rating;
+    }
+
 
     /*************************************** GETTER *******************************************/
 
@@ -54,11 +63,13 @@ public class Product implements Parcelable{
 
     public String getImageUrl() { return imageURL; }
 
-    public int getRating() { return rating; }
+    public double getRating() { return rating; }
 
     public String getRatingStar() {
 
-        switch (rating)
+        int roundedRating = (int) Math.round(rating);
+
+        switch (roundedRating)
         {
             case 1:
                 return  "★";
