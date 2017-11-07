@@ -13,11 +13,11 @@
         <activity android:name=".ProductGalleryActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"/>
-        <activity android:name=".GifsActivity"/>
         <activity android:name=".ProductDetailPage"/>
         <activity android:name=".RatingPage">
         </activity>
@@ -25,6 +25,8 @@
             android:name=".page.profileActivity"
             android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme">
+        </activity>
+        <activity android:name=".page.PanierPageActivity">
         </activity>
     </application>
 

@@ -1,5 +1,6 @@
 package com.maxime.toolkit;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -7,11 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.maxime.toolkit.objects.Panier;
 import com.maxime.toolkit.objects.Product;
 
 public class ProductDetailPage extends AppCompatActivity  implements View.OnClickListener{
@@ -27,7 +30,9 @@ public class ProductDetailPage extends AppCompatActivity  implements View.OnClic
     private TextView mPriceTextView;
     private TextView mRatingTextView;
     private ImageView mProductImage;
-    private ImageView mAddComment;
+
+    private ImageView btnAddComment;
+    private TextView btnAddCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +41,11 @@ public class ProductDetailPage extends AppCompatActivity  implements View.OnClic
 
         _dataManager = new DataManager();
 
+
         Product produit = getIntent().getParcelableExtra(EXTRA_PRODUCT);
 
         //To get more information
         currentProduct = _dataManager.getProductDetails(produit.getID());
-
-
 
         setupUI();
         initListeners();
@@ -74,25 +78,28 @@ public class ProductDetailPage extends AppCompatActivity  implements View.OnClic
 
     private  void setupUI ()
     {
+        //Product informations
         mProductImage = (ImageView) findViewById(R.id.productDetail_Image);
-
         mTitleTextView = (TextView) findViewById(R.id.productDetail_Title);
         mDescriptionTextView = (TextView) findViewById(R.id.productDetail_Description);
         mPriceTextView = (TextView) findViewById(R.id.productDetail_Price);
         mRatingTextView = (TextView) findViewById(R.id.productDetail_Rating);
-        mAddComment = (ImageView)  findViewById(R.id.productDetail_btnAddComment);
 
-        //productDetail_btnAddComment
+        //Buttons
+        btnAddComment = (ImageView)  findViewById(R.id.productDetail_btnAddComment);
+        btnAddCart = (TextView)  findViewById(R.id.productDetail_btnAddCart);
+
+        //Setter
         mTitleTextView.setText(currentProduct.getTitle());
         mDescriptionTextView.setText(currentProduct.getDescription());
         mPriceTextView.setText(String.format("%.2f$", currentProduct.getPrice()));
         mRatingTextView.setText(currentProduct.getRatingStar());
-
-
     }
 
     private void initListeners() {
-        mAddComment.setOnClickListener(this);
+
+        btnAddComment.setOnClickListener(this);
+        btnAddCart.setOnClickListener(this);
     }
 
     @Override
@@ -101,12 +108,20 @@ public class ProductDetailPage extends AppCompatActivity  implements View.OnClic
         int id = view.getId();
 
         if (id == R.id.productDetail_btnAddComment) {
-
             //https://stackoverflow.com/questions/920306/sending-data-back-to-the-main-activity-in-android
-
             Intent intent = new Intent(this, RatingPage.class);
+            startActivity(intent);
+        }
+        else if (id == R.id.productDetail_btnAddCart){
+            Context context = getApplicationContext();
+            CharSequence text = "Item added to the Cart ";
+            int duration = Toast.LENGTH_SHORT;
 
-                    startActivity(intent);
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+
+            Panier.getInstance().addToCart(currentProduct);
+
 
         }
     }

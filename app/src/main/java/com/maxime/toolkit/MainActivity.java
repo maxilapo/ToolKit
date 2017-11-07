@@ -10,14 +10,10 @@ import com.maxime.toolkit.objects.User;
 
 public class MainActivity extends AppCompatActivity {
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.maxime.toolkit.R.layout.activity_main);
-
-        User.getInstance();
 
         Button showGalleryBtn = (Button) findViewById(R.id.btn_show_gallery);
 
@@ -28,15 +24,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(galleryIntent);
             }
         });
-
-        Button showGif = (Button) findViewById(R.id.btn_show_gif);
-        showGif.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent gifIntent = new Intent(MainActivity.this, GifsActivity.class);
-                startActivity(gifIntent);
-            }
-        });
-
     }
 }

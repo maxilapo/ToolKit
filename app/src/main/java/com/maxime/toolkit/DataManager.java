@@ -44,7 +44,6 @@ public class DataManager {
         return "lla";
     }
 
-
     public Product getProductDetails(int _id) {
 
         String[] jsonResult = new String[1];
