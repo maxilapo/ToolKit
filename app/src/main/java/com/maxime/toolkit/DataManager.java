@@ -75,8 +75,7 @@ public class DataManager {
         return null;
     }
 
-
-    public Product[] getAllProducts() {
+        public Product[] getAllProducts() {
 
         String[] jsonResult = new String[1];
         ArrayList<Product> productArray = new ArrayList<Product>();
@@ -103,6 +102,8 @@ public class DataManager {
 
                     if (list_price == Double.NaN || description == null || name == null || description_sale == null)
                         continue;
+
+                    Log.d("max_DATAMANAGER", "exemple url image : " + description);
 
                     Product tempProduct = new Product(id, name, description_sale, list_price, description, rating_last_value);
                     productArray.add(tempProduct);

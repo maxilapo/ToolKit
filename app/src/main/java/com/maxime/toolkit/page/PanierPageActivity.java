@@ -33,7 +33,7 @@ public class PanierPageActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
 
-        PanierPageActivity.ImageGalleryAdapter adapter = new PanierPageActivity.ImageGalleryAdapter(this, Panier.getInstance().getAllProduct());
+        PanierPageActivity.ImageGalleryAdapter adapter = new PanierPageActivity.ImageGalleryAdapter(this, Panier.getInstance().getCartProductFAKE());
         recyclerView.setAdapter(adapter);
     }
 
