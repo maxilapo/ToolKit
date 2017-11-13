@@ -28,7 +28,7 @@ public class Panier {
 
     public Product[] getCartProductFAKE() {
 
-        Product tempProduct = new Product(1, "Produit Title",
+        Product tempProduct = new Product(1, "Produit Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title",
                 "Description lalalalala", 22.50,
                 "http://res.cloudinary.com/dbpym5dfx/image/upload/v1508366324/etui_silicone_noir_iphone_6s_ykhbgl.jpg", 2);
 

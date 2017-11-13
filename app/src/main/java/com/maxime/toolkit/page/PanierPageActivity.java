@@ -13,15 +13,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.maxime.toolkit.ProductDetailPage;
 import com.maxime.toolkit.ProductGalleryActivity;
 import com.maxime.toolkit.R;
+import com.maxime.toolkit.RatingPage;
 import com.maxime.toolkit.objects.Panier;
 import com.maxime.toolkit.objects.Product;
 
-public class PanierPageActivity extends AppCompatActivity {
+public class PanierPageActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,21 @@ public class PanierPageActivity extends AppCompatActivity {
 
         PanierPageActivity.ImageGalleryAdapter adapter = new PanierPageActivity.ImageGalleryAdapter(this, Panier.getInstance().getCartProductFAKE());
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        int id = view.getId();
+
+        if (id == R.id.panierProduct_btnAddItem)
+        {
+            Log.d("max_PANIERPAGE", "onclick dans PanierPageActivity btnAdd");
+        }
+        else if (id == R.id.panierProduct_btnRemoveItem)
+        {
+            Log.d("max_PANIERPAGE", "onclick dans PanierPageActivity btnRemove");
+        }
     }
 
     private class ImageGalleryAdapter extends RecyclerView.Adapter<PanierPageActivity.ImageGalleryAdapter.MyViewHolder>  {
@@ -64,19 +81,20 @@ public class PanierPageActivity extends AppCompatActivity {
         public void onBindViewHolder(PanierPageActivity.ImageGalleryAdapter.MyViewHolder holder, int position)
         {
             Product produit = mListProduct[position];
-            /*ImageView imageView = holder.mPhotoImageView;
+            ImageView imageView = holder.mPhotoImageView;
 
             String formatedPrice = String.format("%.2f$", produit.getPrice());
             holder.bindPrice(formatedPrice);
 
             holder.bindTitle(produit.getTitle());
-            holder.bindDescription(produit.getDescription());
-            holder.bindRating(produit.getRatingStar());*/
+            holder.bindButtonAdd(1);
+            //holder.bindDescription(produit.getDescription());
+            //holder.bindRating(produit.getRatingStar());*/
 
-            /*Glide.with(mContext)
+            Glide.with(mContext)
                     .load(produit.getImageUrl())
                     .placeholder(R.mipmap.productplaceholder400)
-                    .into(imageView);*/
+                    .into(imageView);
         }
 
         @Override
@@ -88,35 +106,55 @@ public class PanierPageActivity extends AppCompatActivity {
 
         public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-            /*public ImageView mPhotoImageView;
+            public ImageView mPhotoImageView;
             public TextView mPriceTextView;
             public TextView mTitleTextView;
-            public TextView mDescriptionTextView;
-            public TextView mRatingTextView;*/
+
+            public ImageView mBtnAddItem;
+            public ImageView mBtnRemoveItem;
 
             public MyViewHolder(View itemView) {
 
                 super(itemView);
-                /*mPhotoImageView = (ImageView) itemView.findViewById(R.id.iv_photo);
-                mPriceTextView = (TextView) itemView.findViewById(R.id.item_Price);
-                mTitleTextView = (TextView) itemView.findViewById(R.id.item_Title);
-                mDescriptionTextView = (TextView) itemView.findViewById(R.id.item_Description);
-                mRatingTextView = (TextView) itemView.findViewById(R.id.item_Stars);*/
+                mPhotoImageView = (ImageView) itemView.findViewById(R.id.panierProduct_Image);
+                mTitleTextView = (TextView) itemView.findViewById(R.id.panierProduct_Title);
+                mPriceTextView = (TextView) itemView.findViewById(R.id.panierProduct_Price);
+
+                mBtnAddItem = (ImageView) itemView.findViewById(R.id.panierProduct_btnAddItem);
+
+                mBtnRemoveItem = (ImageView) itemView.findViewById(R.id.panierProduct_btnRemoveItem);
+
+                mBtnAddItem.setOnClickListener(this);
 
                 itemView.setOnClickListener(this);
             }
 
-            /*public void bindPrice(String text){
-                mPriceTextView.setText(text);
-            }
+            public void bindPrice(String text){mPriceTextView.setText(text);}
             public void bindTitle(String text){ mTitleTextView.setText(text); }
-            public void bindDescription(String text){ mDescriptionTextView.setText(text); }
-            public void bindRating(String text){ mRatingTextView.setText(text); }*/
+            public void bindButtonAdd(int test){ mBtnAddItem.setTag(2); }
+
+            //public void bindDescription(String text){ mDescriptionTextView.setText(text); }
+            //public void bindRating(String text){ mRatingTextView.setText(text); }
 
             @Override
             public void onClick(View view) {
 
                 int position = getAdapterPosition();
+
+                int id = view.getId();
+
+                if (id == R.id.panierProduct_btnAddItem)
+                {
+                    Log.d("max_PANIERPAGE", "onclick dans ImageGalleryAdapter btnAdd");
+                    Log.d("max_PANIERPAGE", "Avec TAG : " + view.getTag().toString());
+                }
+                else if (id == R.id.panierProduct_btnRemoveItem)
+                {
+                    Log.d("max_PANIERPAGE", "onclick dans ImageGalleryAdapter btnRemove");
+                }
+
+
+
                 if(position != RecyclerView.NO_POSITION) {
 
                     /*Product produit = mListProduct[position];

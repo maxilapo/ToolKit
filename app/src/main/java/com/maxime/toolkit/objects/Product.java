@@ -15,6 +15,7 @@ public class Product implements Parcelable{
     String imageURL;
     double price;
     double rating = 4;
+    int quantity = 0;
 
     /*********************************** Constructor ************************************/
 
@@ -48,13 +49,20 @@ public class Product implements Parcelable{
         this.rating = _rating;
     }
 
+    /*************************************** SETTER *******************************************/
+
+    public int addQuantity() {
+        quantity ++;
+        return quantity;
+    }
+
 
     /*************************************** GETTER *******************************************/
 
-    public int getID() { return id; }
+    public int getID() { return this.id; }
 
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     public String getDescription() { return description; }
@@ -82,7 +90,7 @@ public class Product implements Parcelable{
             case 5:
                 return  "★★★★★";
             default:
-                return  "No rating";
+                return  "N/A";
         }
     }
 

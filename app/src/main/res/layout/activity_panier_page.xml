@@ -27,7 +27,8 @@
                 android:layout_weight="1"
                 android:text="Cart"
                 android:textColor="@android:color/background_light"
-                android:textSize="24sp"/>
+                android:textSize="24sp"
+                android:textStyle="bold"/>
 
         </LinearLayout>
 
