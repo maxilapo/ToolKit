@@ -51,6 +51,24 @@ public class Panier {
         }
     }
 
+    public void decrementProduit(int productID) {
+
+        Log.d("max_PANIER", "DECREMENT");
+        for(Product p : productArray)
+        {
+            if(p.getID() != 0 && p.getID() == productID)
+            {
+                p.decrementQuantity();
+
+                //If 0 quantity, remove object.
+                if (p.getQuantity() <= 0){
+                    productArray.remove(p);
+                }
+                return;
+            }
+        }
+    }
+
     public double getSubtotal() {
 
         double subtotal = 0;
@@ -64,7 +82,7 @@ public class Panier {
     public String getSubtotalFormatted() {
 
         double subtotal = getSubtotal();
-        
+
         String formatedTotal = String.format("%.2f$", subtotal);
         return formatedTotal;
     }

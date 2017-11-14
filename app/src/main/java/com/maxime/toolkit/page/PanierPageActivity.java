@@ -25,7 +25,7 @@ import com.maxime.toolkit.objects.Product;
 
 import org.w3c.dom.Text;
 
-public class PanierPageActivity extends AppCompatActivity implements View.OnClickListener {
+public class PanierPageActivity extends AppCompatActivity {
 
     private TextView subTotal;
 
@@ -52,21 +52,6 @@ public class PanierPageActivity extends AppCompatActivity implements View.OnClic
 
     private  void setupUI () {
         subTotal.setText(Panier.getInstance().getSubtotalFormatted());
-    }
-
-    @Override
-    public void onClick(View view) {
-
-        int id = view.getId();
-
-        if (id == R.id.panierProduct_btnAddItem)
-        {
-            Log.d("max_PANIERPAGE", "onclick dans PanierPageActivity btnAdd");
-        }
-        else if (id == R.id.panierProduct_btnRemoveItem)
-        {
-            Log.d("max_PANIERPAGE", "onclick dans PanierPageActivity btnRemove");
-        }
     }
 
     private class ImageGalleryAdapter extends RecyclerView.Adapter<PanierPageActivity.ImageGalleryAdapter.MyViewHolder>  {
@@ -104,7 +89,6 @@ public class PanierPageActivity extends AppCompatActivity implements View.OnClic
             holder.bindPrice(formatedPrice);
             holder.bindQuantity(String.valueOf(produit.getQuantity()));
 
-
             holder.bindButtonAdd(produit.getID());
             holder.bindButtonRemove(produit.getID());
 
@@ -131,12 +115,14 @@ public class PanierPageActivity extends AppCompatActivity implements View.OnClic
             public ImageView mBtnAddItem;
             public ImageView mBtnRemoveItem;
 
+
             public void bindTitle(String text){ mTitleTextView.setText(text); }
             public void bindPrice(String text){mPriceTextView.setText(text);}
             public void bindQuantity(String text){mQuantityTextView.setText(text);}
 
             public void bindButtonAdd(int productID){ mBtnAddItem.setTag(productID); }
-            public void bindButtonRemove(int productID){ mBtnAddItem.setTag(productID); }
+            public void bindButtonRemove(int productID){ mBtnRemoveItem.setTag(productID); }
+
 
             public MyViewHolder(View itemView) {
 
@@ -147,10 +133,11 @@ public class PanierPageActivity extends AppCompatActivity implements View.OnClic
                 mQuantityTextView = (TextView) itemView.findViewById(R.id.panierProduct_Quantity);
 
                 mBtnAddItem = (ImageView) itemView.findViewById(R.id.panierProduct_btnAddItem);
-
                 mBtnRemoveItem = (ImageView) itemView.findViewById(R.id.panierProduct_btnRemoveItem);
 
+
                 mBtnAddItem.setOnClickListener(this);
+                mBtnRemoveItem.setOnClickListener(this);
 
                 itemView.setOnClickListener(this);
             }
@@ -159,21 +146,47 @@ public class PanierPageActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onClick(View view) {
 
+
+                Log.d("max_PANIERPAGE", "on viens de click :  ");
                 int position = getAdapterPosition();
 
+                Log.d("max_PANIERPAGE", "on viens de click a la position : " + position);
+
                 int id = view.getId();
+
+
+                Log.d("max_PANIERPAGE", "viewID : " + id);
+
+                if (view.getTag() == null)
+                    return;
+
+                Log.d("max_PANIERPAGE", "view not null : " + view.getTag());
+
                 int productID = (int)view.getTag(); //YOLO
 
                 if (id == R.id.panierProduct_btnAddItem) {
 
-                    Log.d("max_PANIERPAGE", "Increment productID " + view.getTag().toString());
+                    Log.d("max_PANIERPAGE", "Click sur increment :  " + position);
                     Panier.getInstance().incrementProduit(productID);
                     ImageGalleryAdapter.this.notifyItemChanged(position, "payload " + position);
                     setupUI();
                 }
                 else if (id == R.id.panierProduct_btnRemoveItem) {
 
-                    Log.d("max_PANIERPAGE", "Decrement productID " + view.getTag().toString());
+
+
+                    Log.d("max_PANIERPAGE", "Click sur decrement :  " + position);
+                    Panier.getInstance().decrementProduit(productID);
+
+
+                    //Need to manage the quantity 0 here
+                    
+                    mListProduct = Panier.getInstance().getCartProduct();
+
+                    notifyItemRemoved(position);
+                    notifyItemRangeChanged(position, mListProduct.length);
+
+                    setupUI();
                 }
 
 

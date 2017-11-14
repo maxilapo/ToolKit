@@ -58,6 +58,12 @@ public class Product implements Parcelable{
         return quantity;
     }
 
+    public int decrementQuantity() {
+        quantity --;
+        return quantity;
+    }
+
+
 
     /*************************************** GETTER *******************************************/
 
