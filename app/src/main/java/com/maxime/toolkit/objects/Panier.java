@@ -1,5 +1,7 @@
 package com.maxime.toolkit.objects;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
@@ -16,13 +18,55 @@ public class Panier {
         return ourInstance;
     }
 
-    public void addToCart(Product produit){
-        productArray.add(produit);
-    }
-
     public Product[] getCartProduct(){
         Product[] productList = productArray.toArray(new Product[productArray.size()]);
         return productList;
+    }
+
+    public void addToCart(Product newProduit) {
+
+        for(Product p : productArray)
+        {
+            //If the same product, increment quantity
+            if(p.getID() != 0 && p.getID() == newProduit.getID()){
+                p.incrementQuantity();
+                return;
+            }
+        }
+        newProduit.incrementQuantity();
+        productArray.add(newProduit);
+    }
+
+
+    public void incrementProduit(int productID) {
+
+        for(Product p : productArray)
+        {
+            //If the same product, increment quantity
+            if(p.getID() != 0 && p.getID() == productID){
+                Log.d("max_PANIER", "INCREMENTE");
+                p.incrementQuantity();
+                return;
+            }
+        }
+    }
+
+    public double getSubtotal() {
+
+        double subtotal = 0;
+        for(Product p : productArray) {
+            subtotal += p.getQuantity() * p.getPrice();
+        }
+
+        return  subtotal;
+    }
+
+    public String getSubtotalFormatted() {
+
+        double subtotal = getSubtotal();
+        
+        String formatedTotal = String.format("%.2f$", subtotal);
+        return formatedTotal;
     }
 
 
@@ -41,6 +85,7 @@ public class Panier {
 
         return productList;
     }
+
 
 
 

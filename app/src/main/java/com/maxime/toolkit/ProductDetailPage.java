@@ -78,7 +78,7 @@ public class ProductDetailPage extends AppCompatActivity  implements View.OnClic
 
     private  void setupUI ()
     {
-        //Product informations
+        //Binding
         mProductImage = (ImageView) findViewById(R.id.productDetail_Image);
         mTitleTextView = (TextView) findViewById(R.id.productDetail_Title);
         mDescriptionTextView = (TextView) findViewById(R.id.productDetail_Description);

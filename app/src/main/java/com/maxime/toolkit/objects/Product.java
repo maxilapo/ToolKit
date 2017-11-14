@@ -2,6 +2,7 @@ package com.maxime.toolkit.objects;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 /**
  * Created by Maxime on 2017-10-04.
@@ -51,8 +52,9 @@ public class Product implements Parcelable{
 
     /*************************************** SETTER *******************************************/
 
-    public int addQuantity() {
+    public int incrementQuantity() {
         quantity ++;
+        Log.d("max_PRODUCT", "New quantity : " + quantity);
         return quantity;
     }
 
@@ -72,6 +74,8 @@ public class Product implements Parcelable{
     public String getImageUrl() { return imageURL; }
 
     public double getRating() { return rating; }
+
+    public int getQuantity() { return quantity; }
 
     public String getRatingStar() {
 
