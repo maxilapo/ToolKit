@@ -180,7 +180,7 @@ public class PanierPageActivity extends AppCompatActivity {
 
 
                     //Need to manage the quantity 0 here
-                    
+
                     mListProduct = Panier.getInstance().getCartProduct();
 
                     notifyItemRemoved(position);
