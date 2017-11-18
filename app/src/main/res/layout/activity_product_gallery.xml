@@ -29,15 +29,6 @@
             android:textStyle="bold"/>
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="5dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@mipmap/ic_filter_white"/>
-
-        <ImageView
             android:id="@+id/imageView3"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -56,9 +47,45 @@
             app:srcCompat="@mipmap/ic_cart_white"/>
     </LinearLayout>
 
+    <RelativeLayout
+        android:id="@+id/relative_filter"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@+id/linearLayout"
+        android:background="@android:color/background_light">
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="false"
+            android:layout_margin="10dp"
+            android:text="All Products"
+            android:textColor="#525252"
+            android:textSize="18sp"
+            android:textStyle="bold|italic"/>
+
+        <ImageView
+            android:id="@+id/pageGallery_btnFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:padding="6dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@mipmap/ic_filter_gray"/>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="false"
+            android:background="@android:color/darker_gray"/>
+    </RelativeLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_images"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/linearLayout"/>
+        android:layout_below="@+id/relative_filter"/>
 </RelativeLayout>

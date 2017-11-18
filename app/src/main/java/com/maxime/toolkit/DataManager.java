@@ -2,6 +2,7 @@ package com.maxime.toolkit;
 
 import android.util.Log;
 
+import com.maxime.toolkit.objects.Category;
 import com.maxime.toolkit.objects.Product;
 
 import org.json.JSONArray;
@@ -11,7 +12,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-import okhttp3.OkHttpClient;
 
 /**
  * Created by Maxime on 2017-10-04.
@@ -21,10 +21,8 @@ public class DataManager {
 
     private RequestManager _requestManager;
 
-    private OkHttpClient httpClient;
-    String port = "6969";
-    String GET = "GET";
-    String POST = "POST";
+    private String GET = "GET";
+    private String POST = "POST";
 
     public DataManager() {
         _requestManager = new RequestManager();
@@ -75,7 +73,7 @@ public class DataManager {
         return null;
     }
 
-        public Product[] getAllProducts() {
+    public Product[] getAllProducts() {
 
         String[] jsonResult = new String[1];
         ArrayList<Product> productArray = new ArrayList<Product>();
@@ -118,5 +116,46 @@ public class DataManager {
         Product[] productList = productArray.toArray(new Product[productArray.size()]);
 
         return productList;
+    }
+
+    public Category[] getAllCategories() {
+
+        String[] jsonResult = new String[1];
+        ArrayList<Category> categoryArray = new ArrayList<Category>();
+
+        try {
+            jsonResult = _requestManager.httpRequest(GET, "categories");
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            JSONArray jsonCategoryList = new JSONArray(jsonResult[0]);
+            for(int i=0; i<jsonCategoryList.length(); i++)
+            {
+                try {
+                    int id = jsonCategoryList.getJSONObject(i).getInt("id");
+                    String name = jsonCategoryList.getJSONObject(i).getString("name");
+
+                    if (name == null)
+                        continue;
+
+                    Category tempCategory = new Category(id, name, false);
+                    categoryArray.add(tempCategory);
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Category[] categoryList = categoryArray.toArray(new Category[categoryArray.size()]);
+
+        return categoryList;
     }
 }

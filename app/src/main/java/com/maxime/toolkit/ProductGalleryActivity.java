@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.maxime.toolkit.objects.Product;
+import com.maxime.toolkit.page.FilterPage;
 import com.maxime.toolkit.page.PanierPageActivity;
 
 /**
@@ -26,6 +27,7 @@ public class ProductGalleryActivity extends AppCompatActivity   implements View.
     private DataManager _dataManager;
 
     private ImageView btnPanier;
+    private ImageView btnFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +50,12 @@ public class ProductGalleryActivity extends AppCompatActivity   implements View.
 
     private  void setupUI () {
         btnPanier = (ImageView)  findViewById(R.id.btn_Panier);
+        btnFilter = (ImageView)  findViewById(R.id.pageGallery_btnFilter);
     }
 
     private void initListeners() {
         btnPanier.setOnClickListener(this);
+        btnFilter.setOnClickListener(this);
     }
 
     @Override
@@ -60,6 +64,11 @@ public class ProductGalleryActivity extends AppCompatActivity   implements View.
 
         if (id == R.id.btn_Panier) {
             Intent intent = new Intent(this, PanierPageActivity.class);
+            startActivity(intent);
+        }
+        else if (id == R.id.pageGallery_btnFilter)
+        {
+            Intent intent = new Intent(this, FilterPage.class);
             startActivity(intent);
         }
     }

@@ -28,6 +28,8 @@
         </activity>
         <activity android:name=".page.PanierPageActivity">
         </activity>
+        <activity android:name=".page.FilterPage">
+        </activity>
     </application>
 
 </manifest>
