@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.maxime.toolkit.objects.Product;
 public class PanierPageActivity extends AppCompatActivity {
 
     private TextView subTotal;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +31,7 @@ public class PanierPageActivity extends AppCompatActivity {
         setupUI();
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.panier_ProductList);
+        recyclerView = (RecyclerView) findViewById(R.id.panier_ProductList);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -153,13 +155,29 @@ public class PanierPageActivity extends AppCompatActivity {
                 }
                 else if (id == R.id.panierProduct_btnRemoveItem) //REMOVE ITEM
                 {
-                    Panier.getInstance().decrementProduit(productID);
+                    int newQty = Panier.getInstance().decrementProduit(productID);
+
+                    if (newQty == 0){
+                        Log.d("max_decrement", "panier, qty a 0");
+                        notifyItemRemoved(position);
+                        //notifyItemRangeChanged(position, mListProduct.length);
+
+                        PanierPageActivity.ImageGalleryAdapter adapter = new PanierPageActivity.ImageGalleryAdapter(getApplicationContext(), Panier.getInstance().getCartProduct());
+                        recyclerView.setAdapter(adapter);
+                    }
+                    else{
+                        Log.d("max_decrement", "panier, qty pas 0");
+
+
+
+                        ImageGalleryAdapter.this.notifyItemChanged(position, "payload " + position);
+                    }
+
 
                     //TODO : Manage the quantity 0 here
-                    mListProduct = Panier.getInstance().getCartProduct();
+                    //mListProduct = Panier.getInstance().getCartProduct();
 
-                    notifyItemRemoved(position);
-                    notifyItemRangeChanged(position, mListProduct.length);
+                    //
 
                     setupUI();
                 }

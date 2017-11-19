@@ -60,7 +60,7 @@ public class Panier {
         }
     }
 
-    public void decrementProduit(int productID) {
+    public int decrementProduit(int productID) {
         for(Product p : productArray)
         {
             if(p.getID() != 0 && p.getID() == productID)
@@ -70,10 +70,12 @@ public class Panier {
                 //If 0 quantity, remove object.
                 if (p.getQuantity() <= 0){
                     productArray.remove(p);
+                    return 0;
                 }
-                return;
+                return p.getQuantity();
             }
         }
+        return 0;
     }
 
     public double getSubtotal() {
