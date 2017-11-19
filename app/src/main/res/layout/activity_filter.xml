@@ -38,51 +38,11 @@ tools:context="com.maxime.toolkit.page.FilterPage">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/pageFilter_CategoryList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         >
 
     </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/relative_Bottom"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:background="@android:color/background_light">
-
-        <TextView
-            android:id="@+id/filterPage_SelectedCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="20dp"
-            android:layout_toStartOf="@+id/filterPage_btnApply"
-            android:fontFamily="sans-serif"
-            android:maxLines="2"
-            android:text="Pièces iPhone 7"
-            android:textColor="#454545"
-            android:textSize="18sp"
-            android:textStyle="bold|italic"/>
-
-        <TextView
-            android:id="@+id/filterPage_btnApply"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerInParent="true"
-            android:layout_marginEnd="20dp"
-
-            android:background="@drawable/rounded_rectangle"
-            android:paddingBottom="8dp"
-            android:paddingEnd="20dp"
-            android:paddingStart="20dp"
-            android:paddingTop="8dp"
-            android:text="Apply"
-            android:textColor="@android:color/background_light"
-            android:textSize="18sp"/>
-    </RelativeLayout>
 
 </RelativeLayout>

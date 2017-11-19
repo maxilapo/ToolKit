@@ -1,6 +1,8 @@
 package com.maxime.toolkit.page;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,60 +21,32 @@ import com.maxime.toolkit.R;
 import com.maxime.toolkit.objects.Category;
 import com.maxime.toolkit.objects.Panier;
 import com.maxime.toolkit.objects.Product;
+import com.maxime.toolkit.objects.User;
 
-public class FilterPage extends AppCompatActivity implements View.OnClickListener {
-
-    private DataManager _dataManager;
-
-    private TextView selectedCategory;
-    private TextView btnApply;
+public class FilterPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
 
-        bindUI();
-        setupUI();
-
-        _dataManager = new DataManager();
-
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.pageFilter_CategoryList);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
 
-        FilterPage.CategoryListAdapter adapter = new FilterPage.CategoryListAdapter(this, _dataManager.getAllCategories());
+        FilterPage.CategoryListAdapter adapter = new FilterPage.CategoryListAdapter(this, User.getInstance().getCategoryList());
         recyclerView.setAdapter(adapter);
-    }
-
-    private  void bindUI () {
-
-        selectedCategory = (TextView) findViewById(R.id.filterPage_SelectedCategory);
-        btnApply = (TextView) findViewById(R.id.filterPage_btnApply);
-
-        btnApply.setOnClickListener(this);
-    }
-
-    private  void setupUI () {
-
-        selectedCategory.setText("LALALALALA");
-
-    }
-
-    @Override
-    public void onClick(View v) {
-
     }
 
     private class CategoryListAdapter extends RecyclerView.Adapter<FilterPage.CategoryListAdapter.MyViewHolder>  {
 
         private Category[] mListCategory;
-        private Context mContext;
+
         private int selectedPos = 0;
 
         public CategoryListAdapter(Context context, Category[] _listCategory) {
-            mContext = context;
+
             mListCategory = _listCategory;
         }
 
@@ -94,13 +68,9 @@ public class FilterPage extends AppCompatActivity implements View.OnClickListene
         {
             Category currentCategory = mListCategory[position];
 
-
             holder.bindName(currentCategory.getName());
-
-            holder.itemView.setBackground(selectedPos == position ? getDrawable(R.drawable.border_selected) : getDrawable(R.drawable.border));
-
-
-
+            holder.bindTag(currentCategory.getID());
+            holder.itemView.setBackground(currentCategory.isSelected() ? getDrawable(R.drawable.border_selected) : getDrawable(R.drawable.border));
         }
 
         @Override
@@ -123,18 +93,28 @@ public class FilterPage extends AppCompatActivity implements View.OnClickListene
 
             public void bindName(String text){ mNameTextView.setText(text); }
 
+            public void bindTag(int categoryID){ itemView.setTag(categoryID); }
 
             @Override
             public void onClick(View view) {
 
                 if (getAdapterPosition() == RecyclerView.NO_POSITION) return;
 
+                if (view.getTag() == null)
+                    return;
+
+                int categoryID = (int)view.getTag();
+
+                User.getInstance().selectCategory(categoryID);
+
+                //Updating the old cell and the new one.
                 notifyItemChanged(selectedPos);
                 selectedPos = getAdapterPosition();
                 notifyItemChanged(selectedPos);
 
-
-
+                Intent output = new Intent();
+                setResult(Activity.RESULT_OK, output);
+                finish();
             }
         }
     }

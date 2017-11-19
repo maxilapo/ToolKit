@@ -26,4 +26,10 @@ public class Category {
         return this.name;
     }
 
+    public boolean isSelected() { return this.selected; }
+
+    /*************************************** SETTER *******************************************/
+
+    public void setSelected(Boolean isSelected) { selected = isSelected; }
+
 }

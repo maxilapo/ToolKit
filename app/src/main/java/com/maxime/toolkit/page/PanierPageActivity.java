@@ -146,53 +146,31 @@ public class PanierPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-
-                Log.d("max_PANIERPAGE", "on viens de click :  ");
                 int position = getAdapterPosition();
-
-                Log.d("max_PANIERPAGE", "on viens de click a la position : " + position);
-
                 int id = view.getId();
-
-
-                Log.d("max_PANIERPAGE", "viewID : " + id);
 
                 if (view.getTag() == null)
                     return;
 
-                Log.d("max_PANIERPAGE", "view not null : " + view.getTag());
+                int productID = (int)view.getTag();
 
-                int productID = (int)view.getTag(); //YOLO
-
-                if (id == R.id.panierProduct_btnAddItem) {
-
-                    Log.d("max_PANIERPAGE", "Click sur increment :  " + position);
+                if (id == R.id.panierProduct_btnAddItem) //ADD ITEM
+                {
                     Panier.getInstance().incrementProduit(productID);
                     ImageGalleryAdapter.this.notifyItemChanged(position, "payload " + position);
                     setupUI();
                 }
-                else if (id == R.id.panierProduct_btnRemoveItem) {
-
-
-
-                    Log.d("max_PANIERPAGE", "Click sur decrement :  " + position);
+                else if (id == R.id.panierProduct_btnRemoveItem) //REMOVE ITEM
+                {
                     Panier.getInstance().decrementProduit(productID);
 
-
-                    //Need to manage the quantity 0 here
-
+                    //TODO : Manage the quantity 0 here
                     mListProduct = Panier.getInstance().getCartProduct();
 
                     notifyItemRemoved(position);
                     notifyItemRangeChanged(position, mListProduct.length);
 
                     setupUI();
-                }
-
-
-                if(position != RecyclerView.NO_POSITION) {
-
-                    Log.d("max_PANIERPAGE", "Position clické :  " + position);
                 }
             }
         }

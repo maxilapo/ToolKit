@@ -1,5 +1,6 @@
 package com.maxime.toolkit;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.maxime.toolkit.objects.Product;
+import com.maxime.toolkit.objects.User;
 import com.maxime.toolkit.page.FilterPage;
 import com.maxime.toolkit.page.PanierPageActivity;
 
@@ -26,8 +28,10 @@ public class ProductGalleryActivity extends AppCompatActivity   implements View.
 
     private DataManager _dataManager;
 
+    private RecyclerView recyclerView;
     private ImageView btnPanier;
     private ImageView btnFilter;
+    private TextView txtCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,27 +39,54 @@ public class ProductGalleryActivity extends AppCompatActivity   implements View.
         setContentView(R.layout.activity_product_gallery);
 
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_images);
+        recyclerView = (RecyclerView) findViewById(R.id.rv_images);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
 
         _dataManager = new DataManager();
 
-        ProductGalleryActivity.ImageGalleryAdapter adapter = new ProductGalleryActivity.ImageGalleryAdapter(this, _dataManager.getAllProducts());
+        ProductGalleryActivity.ImageGalleryAdapter adapter = new ProductGalleryActivity.ImageGalleryAdapter(this, _dataManager.getProducts());
         recyclerView.setAdapter(adapter);
 
-        setupUI();
+        bindUI();
+        refreshUI();
         initListeners();
     }
 
-    private  void setupUI () {
+    private  void bindUI () {
         btnPanier = (ImageView)  findViewById(R.id.btn_Panier);
         btnFilter = (ImageView)  findViewById(R.id.pageGallery_btnFilter);
+        txtCategory = (TextView) findViewById(R.id.pageGallery_txtSelectedCategory);
+    }
+
+    private  void refreshUI () {
+        txtCategory.setText(User.getInstance().getSelectedCategoryName());
     }
 
     private void initListeners() {
         btnPanier.setOnClickListener(this);
         btnFilter.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        Log.d("max_GALLERY", "ON ACTIVITY RESULT");
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK){
+
+            //Update the data list.
+            ProductGalleryActivity.ImageGalleryAdapter adapter = new ProductGalleryActivity.ImageGalleryAdapter(this, _dataManager.getProducts());
+            recyclerView.setAdapter(adapter);
+            recyclerView.getAdapter().notifyDataSetChanged();
+
+            refreshUI();
+
+            Log.d("max_GALLERY", "ON ACTIVITY RESULT OK");
+        }
+
+        //}
     }
 
     @Override
@@ -69,12 +100,24 @@ public class ProductGalleryActivity extends AppCompatActivity   implements View.
         else if (id == R.id.pageGallery_btnFilter)
         {
             Intent intent = new Intent(this, FilterPage.class);
-            startActivity(intent);
+            startActivityForResult(intent, 1);
         }
     }
 
 
-    private class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapter.MyViewHolder>  {
+
+    private class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapter.MyViewHolder> {
+
+        private Product[] mListProduct;
+
+        private Context mContext;
+
+        public ImageGalleryAdapter(Context context, Product[] _listProduct) {
+            mContext = context;
+            mListProduct = _listProduct;
+        }
+
+
 
         @Override
         public ImageGalleryAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -88,6 +131,7 @@ public class ProductGalleryActivity extends AppCompatActivity   implements View.
 
             return viewHolder;
         }
+
 
         @Override
         public void onBindViewHolder(ImageGalleryAdapter.MyViewHolder holder, int position)
@@ -115,6 +159,8 @@ public class ProductGalleryActivity extends AppCompatActivity   implements View.
         }
 
 
+
+
         public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
             public ImageView mPhotoImageView;
@@ -122,6 +168,8 @@ public class ProductGalleryActivity extends AppCompatActivity   implements View.
             public TextView mTitleTextView;
             public TextView mDescriptionTextView;
             public TextView mRatingTextView;
+
+
 
             public MyViewHolder(View itemView) {
 
@@ -142,6 +190,9 @@ public class ProductGalleryActivity extends AppCompatActivity   implements View.
             public void bindDescription(String text){ mDescriptionTextView.setText(text); }
             public void bindRating(String text){ mRatingTextView.setText(text); }
 
+
+
+
             @Override
             public void onClick(View view) {
 
@@ -158,13 +209,6 @@ public class ProductGalleryActivity extends AppCompatActivity   implements View.
             }
         }
 
-        private Product[] mListProduct;
 
-        private Context mContext;
-
-        public ImageGalleryAdapter(Context context, Product[] _listProduct) {
-            mContext = context;
-            mListProduct = _listProduct;
-        }
     }
 }
