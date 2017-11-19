@@ -114,7 +114,7 @@
                 android:layout_margin="15dp"
                 android:layout_weight="1"
                 android:elevation="17dp"
-                android:text="Évaluations"
+                android:text="Customer Reviews"
                 android:textColor="@color/colorLightBlack"
                 android:textSize="20sp"
                 android:textStyle="bold"

@@ -1,11 +1,16 @@
 package com.maxime.toolkit;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,8 +19,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.maxime.toolkit.objects.Category;
+import com.maxime.toolkit.objects.Evaluation;
 import com.maxime.toolkit.objects.Panier;
 import com.maxime.toolkit.objects.Product;
+import com.maxime.toolkit.objects.User;
+import com.maxime.toolkit.page.FilterPage;
 
 public class ProductDetailPage extends AppCompatActivity  implements View.OnClickListener{
 
@@ -46,6 +55,14 @@ public class ProductDetailPage extends AppCompatActivity  implements View.OnClic
         bindUI();
         setupUI();
         initListeners();
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.pageDetail_rcvEvaluation);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
+
+        ProductDetailPage.EvaluationListAdapter adapter = new ProductDetailPage.EvaluationListAdapter(this, _dataManager.getProductEvaluation(currentProduct.getID()));
+        recyclerView.setAdapter(adapter);
 
         Glide.with(this)
                 .load(currentProduct.getImageUrl())
@@ -106,13 +123,71 @@ public class ProductDetailPage extends AppCompatActivity  implements View.OnClic
             Context context = getApplicationContext();
             CharSequence text = "Item added to the Cart ";
             int duration = Toast.LENGTH_SHORT;
-
             Toast toast = Toast.makeText(context, text, duration);
-
             toast.show();
 
             Panier.getInstance().addToCart(currentProduct);
+        }
+    }
 
+    private class EvaluationListAdapter extends RecyclerView.Adapter<ProductDetailPage.EvaluationListAdapter.MyViewHolder>  {
+
+        private Evaluation[] mListEvaluation;
+
+        private int selectedPos = 0;
+
+        public EvaluationListAdapter(Context context, Evaluation[] _listEval) {
+
+            mListEvaluation = _listEval;
+        }
+
+        @Override
+        public ProductDetailPage.EvaluationListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+            Context context = parent.getContext();
+            LayoutInflater inflater = LayoutInflater.from(context);
+
+            View evaluationCell = inflater.inflate(R.layout.cell_evaluation, parent, false);
+
+            ProductDetailPage.EvaluationListAdapter.MyViewHolder viewHolder = new ProductDetailPage.EvaluationListAdapter.MyViewHolder(evaluationCell);
+
+            return viewHolder;
+        }
+
+        @Override
+        public void onBindViewHolder(ProductDetailPage.EvaluationListAdapter.MyViewHolder holder, int position)
+        {
+            Evaluation currentEvaluation = mListEvaluation[position];
+
+            holder.bindName(currentEvaluation.getName());
+            holder.bindScore(currentEvaluation.getScoreStars());
+            holder.bindComment(currentEvaluation.getComment());
+        }
+
+        @Override
+        public int getItemCount()
+        {
+            return (mListEvaluation.length);
+        }
+
+
+        public class MyViewHolder extends RecyclerView.ViewHolder {
+
+            public TextView mNameTextView;
+            public TextView mScoreTextView;
+            public TextView mCommentTextView;
+
+            public MyViewHolder(View itemView) {
+
+                super(itemView);
+                mNameTextView = (TextView) itemView.findViewById(R.id.cellEvaluation_txtName);
+                mScoreTextView = (TextView) itemView.findViewById(R.id.cellEvaluation_txtNote);
+                mCommentTextView = (TextView) itemView.findViewById(R.id.cellEvaluation_txtCommentaire);
+            }
+
+            public void bindName(String text){ mNameTextView.setText(text); }
+            public void bindScore(String text){ mScoreTextView.setText(text); }
+            public void bindComment(String text){ mCommentTextView.setText(text); }
 
         }
     }

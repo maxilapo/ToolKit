@@ -3,6 +3,7 @@ package com.maxime.toolkit;
 import android.util.Log;
 
 import com.maxime.toolkit.objects.Category;
+import com.maxime.toolkit.objects.Evaluation;
 import com.maxime.toolkit.objects.Product;
 import com.maxime.toolkit.objects.User;
 
@@ -228,6 +229,49 @@ public class DataManager {
 
         return categoryList;
     }
+
+    public Evaluation[] getProductEvaluation(int productID) {
+
+        String[] jsonResult = new String[1];
+        ArrayList<Evaluation> evaluationArray = new ArrayList<>();
+
+        try {
+            jsonResult = _requestManager.httpRequest(GET, "products/" + productID + "/reviews");
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            JSONArray jsonProductList = new JSONArray(jsonResult[0]);
+            for(int i=0; i<jsonProductList.length(); i++)
+            {
+                try {
+                    String name = jsonProductList.getJSONObject(i).getString("name");
+                    int score = jsonProductList.getJSONObject(i).getInt("score");
+                    String comment = jsonProductList.getJSONObject(i).getString("comment");
+
+                    if (name == null)
+                        continue;
+
+                    Evaluation tempEval = new Evaluation(name, score, comment);
+                    evaluationArray.add(tempEval);
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Evaluation[] evalList = evaluationArray.toArray(new Evaluation[evaluationArray.size()]);
+
+        return evalList;
+    }
+
 
 
 
