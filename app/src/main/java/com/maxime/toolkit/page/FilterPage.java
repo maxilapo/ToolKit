@@ -3,24 +3,17 @@ package com.maxime.toolkit.page;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.maxime.toolkit.DataManager;
 import com.maxime.toolkit.R;
 import com.maxime.toolkit.objects.Category;
-import com.maxime.toolkit.objects.Panier;
-import com.maxime.toolkit.objects.Product;
 import com.maxime.toolkit.objects.User;
 
 public class FilterPage extends AppCompatActivity {
@@ -56,7 +49,7 @@ public class FilterPage extends AppCompatActivity {
             Context context = parent.getContext();
             LayoutInflater inflater = LayoutInflater.from(context);
 
-            View categoryCell = inflater.inflate(R.layout.category_cell, parent, false);
+            View categoryCell = inflater.inflate(R.layout.cell_filter, parent, false);
 
             FilterPage.CategoryListAdapter.MyViewHolder viewHolder = new FilterPage.CategoryListAdapter.MyViewHolder(categoryCell);
 

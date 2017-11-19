@@ -40,13 +40,10 @@ public class ProductDetailPage extends AppCompatActivity  implements View.OnClic
         setContentView(R.layout.activity_product_detail);
 
         _dataManager = new DataManager();
-
-
         Product produit = getIntent().getParcelableExtra(EXTRA_PRODUCT);
-
-        //To get more information
         currentProduct = _dataManager.getProductDetails(produit.getID());
 
+        bindUI();
         setupUI();
         initListeners();
 
@@ -64,10 +61,7 @@ public class ProductDetailPage extends AppCompatActivity  implements View.OnClic
                     @Override
                     public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache,
                                                    boolean isFirstResource) {
-
-                        //onPalette(Palette.from(resource).generate());
                         mProductImage.setImageBitmap(resource);
-
                         return false;
                     }
                 })
@@ -76,20 +70,18 @@ public class ProductDetailPage extends AppCompatActivity  implements View.OnClic
     }
 
 
-    private  void setupUI ()
-    {
-        //Binding
+    private  void bindUI (){
+        btnAddComment = (ImageView)  findViewById(R.id.productDetail_btnAddComment);
+        btnAddCart = (TextView)  findViewById(R.id.productDetail_btnAddCart);
+
         mProductImage = (ImageView) findViewById(R.id.productDetail_Image);
         mTitleTextView = (TextView) findViewById(R.id.productDetail_Title);
         mDescriptionTextView = (TextView) findViewById(R.id.productDetail_Description);
         mPriceTextView = (TextView) findViewById(R.id.productDetail_Price);
         mRatingTextView = (TextView) findViewById(R.id.productDetail_Rating);
+    }
 
-        //Buttons
-        btnAddComment = (ImageView)  findViewById(R.id.productDetail_btnAddComment);
-        btnAddCart = (TextView)  findViewById(R.id.productDetail_btnAddCart);
-
-        //Setter
+    private  void setupUI (){
         mTitleTextView.setText(currentProduct.getTitle());
         mDescriptionTextView.setText(currentProduct.getDescription());
         mPriceTextView.setText(String.format("%.2f$", currentProduct.getPrice()));
@@ -97,7 +89,6 @@ public class ProductDetailPage extends AppCompatActivity  implements View.OnClic
     }
 
     private void initListeners() {
-
         btnAddComment.setOnClickListener(this);
         btnAddCart.setOnClickListener(this);
     }
@@ -108,7 +99,6 @@ public class ProductDetailPage extends AppCompatActivity  implements View.OnClic
         int id = view.getId();
 
         if (id == R.id.productDetail_btnAddComment) {
-            //https://stackoverflow.com/questions/920306/sending-data-back-to-the-main-activity-in-android
             Intent intent = new Intent(this, RatingPage.class);
             startActivity(intent);
         }

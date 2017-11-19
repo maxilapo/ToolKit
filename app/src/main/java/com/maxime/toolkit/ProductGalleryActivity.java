@@ -1,6 +1,5 @@
 package com.maxime.toolkit;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -125,7 +124,7 @@ public class ProductGalleryActivity extends AppCompatActivity   implements View.
             Context context = parent.getContext();
             LayoutInflater inflater = LayoutInflater.from(context);
 
-            View photoView = inflater.inflate(R.layout.item_photo, parent, false);
+            View photoView = inflater.inflate(R.layout.cell_produit, parent, false);
 
             ImageGalleryAdapter.MyViewHolder viewHolder = new ImageGalleryAdapter.MyViewHolder(photoView);
 
