@@ -1,6 +1,5 @@
 package com.maxime.toolkit;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -8,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,21 +19,20 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.maxime.toolkit.objects.Category;
 import com.maxime.toolkit.objects.Evaluation;
 import com.maxime.toolkit.objects.Panier;
 import com.maxime.toolkit.objects.Product;
-import com.maxime.toolkit.objects.User;
-import com.maxime.toolkit.page.FilterPage;
 
-public class ProductDetailPage extends AppCompatActivity  implements View.OnClickListener{
+public class pageProductDetail extends AppCompatActivity  implements View.OnClickListener{
 
-    public static final String EXTRA_PRODUCT = "ProductDetailPage.Product";
+    public static final String EXTRA_PRODUCT = "pageProductDetail.Product";
 
     private DataManager _dataManager;
 
     private Product currentProduct;
 
+
+    private RecyclerView recyclerView;
     private TextView mTitleTextView;
     private TextView mDescriptionTextView;
     private TextView mPriceTextView;
@@ -57,11 +56,11 @@ public class ProductDetailPage extends AppCompatActivity  implements View.OnClic
         initListeners();
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.pageDetail_rcvEvaluation);
+        recyclerView = (RecyclerView) findViewById(R.id.pageDetail_rcvEvaluation);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
 
-        ProductDetailPage.EvaluationListAdapter adapter = new ProductDetailPage.EvaluationListAdapter(this, _dataManager.getProductEvaluation(currentProduct.getID()));
+        pageProductDetail.EvaluationListAdapter adapter = new pageProductDetail.EvaluationListAdapter(this, _dataManager.getProductEvaluation(currentProduct.getID()));
         recyclerView.setAdapter(adapter);
 
         Glide.with(this)
@@ -110,14 +109,17 @@ public class ProductDetailPage extends AppCompatActivity  implements View.OnClic
         btnAddCart.setOnClickListener(this);
     }
 
+
+
     @Override
     public void onClick(View view) {
 
         int id = view.getId();
 
         if (id == R.id.productDetail_btnAddComment) {
-            Intent intent = new Intent(this, RatingPage.class);
-            startActivity(intent);
+            Intent intent = new Intent(this, pageEvaluation.class);
+            intent.putExtra("productID", currentProduct.getID());
+            startActivityForResult(intent, 1);
         }
         else if (id == R.id.productDetail_btnAddCart){
             Context context = getApplicationContext();
@@ -130,7 +132,26 @@ public class ProductDetailPage extends AppCompatActivity  implements View.OnClic
         }
     }
 
-    private class EvaluationListAdapter extends RecyclerView.Adapter<ProductDetailPage.EvaluationListAdapter.MyViewHolder>  {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK){
+            pageProductDetail.EvaluationListAdapter adapter = new pageProductDetail.EvaluationListAdapter(this,
+                    _dataManager.getProductEvaluation(currentProduct.getID()));
+
+            recyclerView.setAdapter(adapter);
+            recyclerView.getAdapter().notifyDataSetChanged();
+
+            Context context = getApplicationContext();
+            CharSequence text = "Review added";
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+        }
+    }
+
+    private class EvaluationListAdapter extends RecyclerView.Adapter<pageProductDetail.EvaluationListAdapter.MyViewHolder>  {
 
         private Evaluation[] mListEvaluation;
 
@@ -142,20 +163,20 @@ public class ProductDetailPage extends AppCompatActivity  implements View.OnClic
         }
 
         @Override
-        public ProductDetailPage.EvaluationListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public pageProductDetail.EvaluationListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
             Context context = parent.getContext();
             LayoutInflater inflater = LayoutInflater.from(context);
 
             View evaluationCell = inflater.inflate(R.layout.cell_evaluation, parent, false);
 
-            ProductDetailPage.EvaluationListAdapter.MyViewHolder viewHolder = new ProductDetailPage.EvaluationListAdapter.MyViewHolder(evaluationCell);
+            pageProductDetail.EvaluationListAdapter.MyViewHolder viewHolder = new pageProductDetail.EvaluationListAdapter.MyViewHolder(evaluationCell);
 
             return viewHolder;
         }
 
         @Override
-        public void onBindViewHolder(ProductDetailPage.EvaluationListAdapter.MyViewHolder holder, int position)
+        public void onBindViewHolder(pageProductDetail.EvaluationListAdapter.MyViewHolder holder, int position)
         {
             Evaluation currentEvaluation = mListEvaluation[position];
 

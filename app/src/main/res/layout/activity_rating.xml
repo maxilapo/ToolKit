@@ -1,17 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
 
     <RatingBar
-        android:id="@+id/rating"
-        style="?android:attr/ratingBarStyleSmall"
+        android:id="@+id/pageRating_star"
+        style="@style/Widget.AppCompat.RatingBar.Indicator"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:isIndicator="true"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/colorLightBlack"
+        android:clickable="true"
+        android:elevation="0dp"
+        android:isIndicator="false"
         android:numStars="5"
+        android:progressTint="@color/colorPrimary"
+        android:rating="3"
         android:stepSize="1"/>
 
+    <EditText
+        android:id="@+id/pageRating_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pageRating_star"
+        android:layout_margin="10dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"/>
 
-</LinearLayout>
+    <EditText
+        android:id="@+id/pageRating_Comment"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@+id/pageRating_name"
+        android:layout_margin="10dp"
+        android:ems="10"
+        android:hint="Your comment...."
+        android:inputType="textMultiLine"
+        android:maxLength="120"/>
+
+    <TextView
+        android:id="@+id/pageRating_btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/pageRating_Comment"
+        android:layout_margin="20dp"
+        android:layout_weight="1"
+        android:background="@drawable/rounded_rectangle"
+        android:text="Submit"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textSize="24sp"
+        android:textStyle="bold"/>
+
+
+</RelativeLayout>

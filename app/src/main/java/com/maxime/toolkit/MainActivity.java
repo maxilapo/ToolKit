@@ -6,8 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.maxime.toolkit.objects.User;
-
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -20,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         showGalleryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent galleryIntent = new Intent(MainActivity.this, ProductGalleryActivity.class);
+                Intent galleryIntent = new Intent(MainActivity.this, pageProductGallery.class);
                 startActivity(galleryIntent);
             }
         });

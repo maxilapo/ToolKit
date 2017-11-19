@@ -41,7 +41,7 @@ public class DataManager {
         Product produit;
 
         try {
-            jsonResult = _requestManager.httpRequest(GET, url);
+            jsonResult = _requestManager.httpRequest(GET, url, "");
         }
         catch (ExecutionException e) { e.printStackTrace();}
         catch (InterruptedException e) { e.printStackTrace();}
@@ -89,7 +89,7 @@ public class DataManager {
         ArrayList<Product> productArray = new ArrayList<Product>();
 
         try {
-            jsonResult = _requestManager.httpRequest(GET, "products/category/" + categoryID);
+            jsonResult = _requestManager.httpRequest(GET, "products/category/" + categoryID, "");
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -134,7 +134,7 @@ public class DataManager {
         ArrayList<Product> productArray = new ArrayList<Product>();
 
         try {
-            jsonResult = _requestManager.httpRequest(GET, "products");
+            jsonResult = _requestManager.httpRequest(GET, "products", "");
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -179,7 +179,7 @@ public class DataManager {
         ArrayList<Category> categoryArray = new ArrayList<Category>();
 
         try {
-            jsonResult = _requestManager.httpRequest(GET, "categories");
+            jsonResult = _requestManager.httpRequest(GET, "categories", "");
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -236,7 +236,7 @@ public class DataManager {
         ArrayList<Evaluation> evaluationArray = new ArrayList<>();
 
         try {
-            jsonResult = _requestManager.httpRequest(GET, "products/" + productID + "/reviews");
+            jsonResult = _requestManager.httpRequest(GET, "products/" + productID + "/reviews", "");
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -272,6 +272,48 @@ public class DataManager {
         return evalList;
     }
 
+
+    public boolean addEvaluation (int productID, String name, int score, String comment) {
+
+        String[] jsonResult = new String[1];
+        JSONObject jsonParams = new JSONObject();
+
+        try {
+            jsonParams.put("name", name);
+            jsonParams.put("score", String.valueOf(score));
+            jsonParams.put("comment", comment);
+            jsonParams.put("product_id", productID);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            jsonResult = _requestManager.httpRequest(POST, "products/" + productID + "/review", jsonParams.toString());
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            JSONArray jsonProductList = new JSONArray(jsonResult[0]);
+            for(int i=0; i<jsonProductList.length(); i++)
+            {
+                try {
+                    if(jsonProductList.getJSONObject(i).has("id"))
+                        return true;
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 
 
 

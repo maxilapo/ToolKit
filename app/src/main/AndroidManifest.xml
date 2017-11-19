@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ProductGalleryActivity">
+        <activity android:name=".pageProductGallery">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -18,8 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"/>
-        <activity android:name=".ProductDetailPage"/>
-        <activity android:name=".RatingPage">
+        <activity android:name=".pageProductDetail"/>
+        <activity android:name=".pageEvaluation">
         </activity>
         <activity
             android:name=".page.profileActivity"

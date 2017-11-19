@@ -23,7 +23,7 @@ import com.maxime.toolkit.page.PanierPageActivity;
  * Created by Maxime
  */
 
-public class ProductGalleryActivity extends AppCompatActivity   implements View.OnClickListener{
+public class pageProductGallery extends AppCompatActivity   implements View.OnClickListener{
 
     private DataManager _dataManager;
 
@@ -44,7 +44,7 @@ public class ProductGalleryActivity extends AppCompatActivity   implements View.
 
         _dataManager = new DataManager();
 
-        ProductGalleryActivity.ImageGalleryAdapter adapter = new ProductGalleryActivity.ImageGalleryAdapter(this, _dataManager.getProducts());
+        pageProductGallery.ImageGalleryAdapter adapter = new pageProductGallery.ImageGalleryAdapter(this, _dataManager.getProducts());
         recyclerView.setAdapter(adapter);
 
         bindUI();
@@ -76,7 +76,7 @@ public class ProductGalleryActivity extends AppCompatActivity   implements View.
         if (resultCode == RESULT_OK){
 
             //Update the data list.
-            ProductGalleryActivity.ImageGalleryAdapter adapter = new ProductGalleryActivity.ImageGalleryAdapter(this, _dataManager.getProducts());
+            pageProductGallery.ImageGalleryAdapter adapter = new pageProductGallery.ImageGalleryAdapter(this, _dataManager.getProducts());
             recyclerView.setAdapter(adapter);
             recyclerView.getAdapter().notifyDataSetChanged();
 
@@ -200,9 +200,9 @@ public class ProductGalleryActivity extends AppCompatActivity   implements View.
 
                     Product produit = mListProduct[position];
 
-                    Intent intent = new Intent(mContext, ProductDetailPage.class);
+                    Intent intent = new Intent(mContext, pageProductDetail.class);
                     Log.d("max_clickOnItem", "ID = " + produit.getID());
-                    intent.putExtra(ProductDetailPage.EXTRA_PRODUCT, produit);
+                    intent.putExtra(pageProductDetail.EXTRA_PRODUCT, produit);
                     startActivity(intent);
                 }
             }
