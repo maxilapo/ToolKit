@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.maxime.toolkit.objects.Panier;
 import com.maxime.toolkit.objects.Product;
 import com.maxime.toolkit.objects.User;
 import com.maxime.toolkit.page.FilterPage;
@@ -29,8 +30,10 @@ public class pageProductGallery extends AppCompatActivity   implements View.OnCl
 
     private RecyclerView recyclerView;
     private ImageView btnPanier;
+    private TextView txtPanierCounter;
     private ImageView btnFilter;
     private TextView txtCategory;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,43 +59,23 @@ public class pageProductGallery extends AppCompatActivity   implements View.OnCl
         btnPanier = (ImageView)  findViewById(R.id.btn_Panier);
         btnFilter = (ImageView)  findViewById(R.id.pageGallery_btnFilter);
         txtCategory = (TextView) findViewById(R.id.pageGallery_txtSelectedCategory);
+        txtPanierCounter = (TextView) findViewById(R.id.pageGallery_txtPanierCounter);
     }
 
-    private  void refreshUI () {
-        txtCategory.setText(User.getInstance().getSelectedCategoryName());
-    }
+    private  void refreshUI () { txtCategory.setText(User.getInstance().getSelectedCategoryName()); }
 
     private void initListeners() {
         btnPanier.setOnClickListener(this);
         btnFilter.setOnClickListener(this);
+        txtPanierCounter.setOnClickListener(this);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        Log.d("max_GALLERY", "ON ACTIVITY RESULT");
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK){
-
-            //Update the data list.
-            pageProductGallery.ImageGalleryAdapter adapter = new pageProductGallery.ImageGalleryAdapter(this, _dataManager.getProducts());
-            recyclerView.setAdapter(adapter);
-            recyclerView.getAdapter().notifyDataSetChanged();
-
-            refreshUI();
-
-            Log.d("max_GALLERY", "ON ACTIVITY RESULT OK");
-        }
-
-        //}
-    }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
 
-        if (id == R.id.btn_Panier) {
+        if (id == R.id.btn_Panier || id == R.id.pageGallery_txtPanierCounter) {
             Intent intent = new Intent(this, PanierPageActivity.class);
             startActivity(intent);
         }
@@ -103,12 +86,34 @@ public class pageProductGallery extends AppCompatActivity   implements View.OnCl
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK){
+
+            //Update the data list.
+            pageProductGallery.ImageGalleryAdapter adapter = new pageProductGallery.ImageGalleryAdapter(this, _dataManager.getProducts());
+            recyclerView.setAdapter(adapter);
+            recyclerView.getAdapter().notifyDataSetChanged();
+
+            refreshUI();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        txtPanierCounter.setText(String.valueOf(Panier.getInstance().getCartCount()));
+    }
+
+
+
 
 
     private class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapter.MyViewHolder> {
 
         private Product[] mListProduct;
-
         private Context mContext;
 
         public ImageGalleryAdapter(Context context, Product[] _listProduct) {
@@ -125,9 +130,7 @@ public class pageProductGallery extends AppCompatActivity   implements View.OnCl
             LayoutInflater inflater = LayoutInflater.from(context);
 
             View photoView = inflater.inflate(R.layout.cell_produit, parent, false);
-
             ImageGalleryAdapter.MyViewHolder viewHolder = new ImageGalleryAdapter.MyViewHolder(photoView);
-
             return viewHolder;
         }
 
@@ -169,7 +172,6 @@ public class pageProductGallery extends AppCompatActivity   implements View.OnCl
             public TextView mRatingTextView;
 
 
-
             public MyViewHolder(View itemView) {
 
                 super(itemView);
@@ -189,9 +191,6 @@ public class pageProductGallery extends AppCompatActivity   implements View.OnCl
             public void bindDescription(String text){ mDescriptionTextView.setText(text); }
             public void bindRating(String text){ mRatingTextView.setText(text); }
 
-
-
-
             @Override
             public void onClick(View view) {
 
@@ -207,7 +206,5 @@ public class pageProductGallery extends AppCompatActivity   implements View.OnCl
                 }
             }
         }
-
-
     }
 }

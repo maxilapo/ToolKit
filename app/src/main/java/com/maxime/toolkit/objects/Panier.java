@@ -18,6 +18,17 @@ public class Panier {
         return ourInstance;
     }
 
+    public int getCartCount(){
+
+        int qantity = 0;
+
+        for(Product p : productArray) {
+            qantity += p.getQuantity();
+        }
+
+        return qantity;
+    }
+
     public Product[] getCartProduct(){
         Product[] productList = productArray.toArray(new Product[productArray.size()]);
         return productList;
@@ -42,9 +53,7 @@ public class Panier {
 
         for(Product p : productArray)
         {
-            //If the same product, increment quantity
             if(p.getID() != 0 && p.getID() == productID){
-                Log.d("max_PANIER", "INCREMENTE");
                 p.incrementQuantity();
                 return;
             }
@@ -52,8 +61,6 @@ public class Panier {
     }
 
     public void decrementProduit(int productID) {
-
-        Log.d("max_PANIER", "DECREMENT");
         for(Product p : productArray)
         {
             if(p.getID() != 0 && p.getID() == productID)

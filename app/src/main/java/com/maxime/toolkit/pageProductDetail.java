@@ -208,7 +208,16 @@ public class pageProductDetail extends AppCompatActivity  implements View.OnClic
 
             public void bindName(String text){ mNameTextView.setText(text); }
             public void bindScore(String text){ mScoreTextView.setText(text); }
-            public void bindComment(String text){ mCommentTextView.setText(text); }
+            public void bindComment(String text){
+
+                if (text == "null") { // thats bad lol
+                    mCommentTextView.setVisibility(View.INVISIBLE);
+                    mCommentTextView.setHeight(1);
+                }
+                else
+                    mCommentTextView.setText(text);
+
+            }
 
         }
     }
