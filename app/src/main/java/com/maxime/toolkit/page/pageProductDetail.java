@@ -1,4 +1,4 @@
-package com.maxime.toolkit;
+package com.maxime.toolkit.page;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.maxime.toolkit.DataManager;
+import com.maxime.toolkit.R;
 import com.maxime.toolkit.objects.Evaluation;
 import com.maxime.toolkit.objects.Panier;
 import com.maxime.toolkit.objects.Product;

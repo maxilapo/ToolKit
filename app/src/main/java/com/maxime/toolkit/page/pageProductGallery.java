@@ -1,4 +1,4 @@
-package com.maxime.toolkit;
+package com.maxime.toolkit.page;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,11 +14,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.maxime.toolkit.DataManager;
+import com.maxime.toolkit.R;
 import com.maxime.toolkit.objects.Panier;
 import com.maxime.toolkit.objects.Product;
 import com.maxime.toolkit.objects.User;
-import com.maxime.toolkit.page.FilterPage;
-import com.maxime.toolkit.page.PanierPageActivity;
 
 /**
  * Created by Maxime
@@ -76,12 +76,12 @@ public class pageProductGallery extends AppCompatActivity   implements View.OnCl
         int id = v.getId();
 
         if (id == R.id.btn_Panier || id == R.id.pageGallery_txtPanierCounter) {
-            Intent intent = new Intent(this, PanierPageActivity.class);
+            Intent intent = new Intent(this, pagePanier.class);
             startActivity(intent);
         }
         else if (id == R.id.pageGallery_btnFilter)
         {
-            Intent intent = new Intent(this, FilterPage.class);
+            Intent intent = new Intent(this, pageFilter.class);
             startActivityForResult(intent, 1);
         }
     }

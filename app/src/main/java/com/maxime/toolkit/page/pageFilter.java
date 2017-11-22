@@ -16,7 +16,7 @@ import com.maxime.toolkit.R;
 import com.maxime.toolkit.objects.Category;
 import com.maxime.toolkit.objects.User;
 
-public class FilterPage extends AppCompatActivity {
+public class pageFilter extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +28,11 @@ public class FilterPage extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
 
-        FilterPage.CategoryListAdapter adapter = new FilterPage.CategoryListAdapter(this, User.getInstance().getCategoryList());
+        pageFilter.CategoryListAdapter adapter = new pageFilter.CategoryListAdapter(this, User.getInstance().getCategoryList());
         recyclerView.setAdapter(adapter);
     }
 
-    private class CategoryListAdapter extends RecyclerView.Adapter<FilterPage.CategoryListAdapter.MyViewHolder>  {
+    private class CategoryListAdapter extends RecyclerView.Adapter<pageFilter.CategoryListAdapter.MyViewHolder>  {
 
         private Category[] mListCategory;
 
@@ -44,20 +44,20 @@ public class FilterPage extends AppCompatActivity {
         }
 
         @Override
-        public FilterPage.CategoryListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public pageFilter.CategoryListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
             Context context = parent.getContext();
             LayoutInflater inflater = LayoutInflater.from(context);
 
             View categoryCell = inflater.inflate(R.layout.cell_filter, parent, false);
 
-            FilterPage.CategoryListAdapter.MyViewHolder viewHolder = new FilterPage.CategoryListAdapter.MyViewHolder(categoryCell);
+            pageFilter.CategoryListAdapter.MyViewHolder viewHolder = new pageFilter.CategoryListAdapter.MyViewHolder(categoryCell);
 
             return viewHolder;
         }
 
         @Override
-        public void onBindViewHolder(FilterPage.CategoryListAdapter.MyViewHolder holder, int position)
+        public void onBindViewHolder(pageFilter.CategoryListAdapter.MyViewHolder holder, int position)
         {
             Category currentCategory = mListCategory[position];
 

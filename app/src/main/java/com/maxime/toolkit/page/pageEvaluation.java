@@ -1,4 +1,4 @@
-package com.maxime.toolkit;
+package com.maxime.toolkit.page;
 
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +9,9 @@ import android.widget.EditText;
 
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.maxime.toolkit.DataManager;
+import com.maxime.toolkit.R;
 
 public class pageEvaluation extends AppCompatActivity implements View.OnClickListener{
 

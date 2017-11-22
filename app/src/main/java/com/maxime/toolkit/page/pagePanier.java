@@ -17,7 +17,7 @@ import com.maxime.toolkit.R;
 import com.maxime.toolkit.objects.Panier;
 import com.maxime.toolkit.objects.Product;
 
-public class PanierPageActivity extends AppCompatActivity {
+public class pagePanier extends AppCompatActivity {
 
     private TextView subTotal;
     private RecyclerView recyclerView;
@@ -35,7 +35,7 @@ public class PanierPageActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
 
-        PanierPageActivity.ImageGalleryAdapter adapter = new PanierPageActivity.ImageGalleryAdapter(this, Panier.getInstance().getCartProduct());
+        pagePanier.ImageGalleryAdapter adapter = new pagePanier.ImageGalleryAdapter(this, Panier.getInstance().getCartProduct());
         recyclerView.setAdapter(adapter);
     }
 
@@ -47,7 +47,7 @@ public class PanierPageActivity extends AppCompatActivity {
         subTotal.setText(Panier.getInstance().getSubtotalFormatted());
     }
 
-    private class ImageGalleryAdapter extends RecyclerView.Adapter<PanierPageActivity.ImageGalleryAdapter.MyViewHolder>  {
+    private class ImageGalleryAdapter extends RecyclerView.Adapter<pagePanier.ImageGalleryAdapter.MyViewHolder>  {
 
         private Product[] mListProduct;
         private Context mContext;
@@ -58,20 +58,20 @@ public class PanierPageActivity extends AppCompatActivity {
         }
 
         @Override
-        public PanierPageActivity.ImageGalleryAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public pagePanier.ImageGalleryAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
             Context context = parent.getContext();
             LayoutInflater inflater = LayoutInflater.from(context);
 
             View photoView = inflater.inflate(R.layout.cell_panier, parent, false);
 
-            PanierPageActivity.ImageGalleryAdapter.MyViewHolder viewHolder = new PanierPageActivity.ImageGalleryAdapter.MyViewHolder(photoView);
+            pagePanier.ImageGalleryAdapter.MyViewHolder viewHolder = new pagePanier.ImageGalleryAdapter.MyViewHolder(photoView);
 
             return viewHolder;
         }
 
         @Override
-        public void onBindViewHolder(PanierPageActivity.ImageGalleryAdapter.MyViewHolder holder, int position)
+        public void onBindViewHolder(pagePanier.ImageGalleryAdapter.MyViewHolder holder, int position)
         {
             Product produit = mListProduct[position];
             ImageView imageView = holder.mPhotoImageView;
@@ -162,7 +162,7 @@ public class PanierPageActivity extends AppCompatActivity {
                         notifyItemRemoved(position);
                         //notifyItemRangeChanged(position, mListProduct.length);
 
-                        PanierPageActivity.ImageGalleryAdapter adapter = new PanierPageActivity.ImageGalleryAdapter(getApplicationContext(), Panier.getInstance().getCartProduct());
+                        pagePanier.ImageGalleryAdapter adapter = new pagePanier.ImageGalleryAdapter(getApplicationContext(), Panier.getInstance().getCartProduct());
                         recyclerView.setAdapter(adapter);
                     }
                     else{
