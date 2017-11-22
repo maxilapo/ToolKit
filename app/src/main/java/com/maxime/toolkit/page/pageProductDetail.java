@@ -46,7 +46,7 @@ public class pageProductDetail extends AppCompatActivity  implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_product_detail);
+        setContentView(R.layout.activity_page_detail);
 
         _dataManager = new DataManager();
         Product produit = getIntent().getParcelableExtra(EXTRA_PRODUCT);
@@ -118,7 +118,7 @@ public class pageProductDetail extends AppCompatActivity  implements View.OnClic
         int id = view.getId();
 
         if (id == R.id.productDetail_btnAddComment) {
-            Intent intent = new Intent(this, pageEvaluation.class);
+            Intent intent = new Intent(this, pageReview.class);
             intent.putExtra("productID", currentProduct.getID());
             startActivityForResult(intent, 1);
         }

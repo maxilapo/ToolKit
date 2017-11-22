@@ -38,7 +38,7 @@ public class pageProductGallery extends AppCompatActivity   implements View.OnCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_product_gallery);
+        setContentView(R.layout.activity_page_gallery);
 
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
         recyclerView = (RecyclerView) findViewById(R.id.rv_images);

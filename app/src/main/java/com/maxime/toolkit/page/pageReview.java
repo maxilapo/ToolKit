@@ -3,7 +3,6 @@ package com.maxime.toolkit.page;
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -13,7 +12,7 @@ import android.widget.TextView;
 import com.maxime.toolkit.DataManager;
 import com.maxime.toolkit.R;
 
-public class pageEvaluation extends AppCompatActivity implements View.OnClickListener{
+public class pageReview extends AppCompatActivity implements View.OnClickListener{
 
     public static final String EXTRA_PRODUCTID = "pageProductDetail.ProductID";
 
@@ -28,7 +27,7 @@ public class pageEvaluation extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rating);
+        setContentView(R.layout.activity_page_review);
 
         productID = getIntent().getIntExtra("productID", 0);
 

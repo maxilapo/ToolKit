@@ -20,7 +20,7 @@
 
         <activity android:name=".MainActivity"/>
         <activity android:name=".page.pageProductDetail"/>
-        <activity android:name=".page.pageEvaluation"/>
+        <activity android:name=".page.pageReview"/>
         <activity android:name=".page.pagePanier"/>
         <activity android:name=".page.pageFilter"/>
 
