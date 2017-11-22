@@ -29,10 +29,13 @@ public class pageProductGallery extends AppCompatActivity   implements View.OnCl
     private DataManager _dataManager;
 
     private RecyclerView recyclerView;
+
+    private ImageView btnAdmin;
+    private ImageView btnLivreur;
     private ImageView btnPanier;
-    private TextView txtPanierCounter;
     private ImageView btnFilter;
     private TextView txtCategory;
+    private TextView txtPanierCounter;
 
 
     @Override
@@ -56,15 +59,36 @@ public class pageProductGallery extends AppCompatActivity   implements View.OnCl
     }
 
     private  void bindUI () {
+        btnAdmin = (ImageView)  findViewById(R.id.pageGallery_btnAdmin);
+        btnLivreur = (ImageView)  findViewById(R.id.pageGallery_btnShipping);
         btnPanier = (ImageView)  findViewById(R.id.btn_Panier);
         btnFilter = (ImageView)  findViewById(R.id.pageGallery_btnFilter);
         txtCategory = (TextView) findViewById(R.id.pageGallery_txtSelectedCategory);
         txtPanierCounter = (TextView) findViewById(R.id.pageGallery_txtPanierCounter);
     }
 
-    private  void refreshUI () { txtCategory.setText(User.getInstance().getSelectedCategoryName()); }
+    private  void refreshUI () {
+        txtCategory.setText(User.getInstance().getSelectedCategoryName());
+        txtPanierCounter.setText(String.valueOf(Panier.getInstance().getCartCount()));
+
+        //Manage special button for admin and livreur
+        if (User.getInstance().isAdmin()){
+            btnAdmin.setVisibility(View.VISIBLE);
+            btnLivreur.setVisibility(View.INVISIBLE);
+        }
+        else if (User.getInstance().isLivreur()){
+            btnAdmin.setVisibility(View.INVISIBLE);
+            btnLivreur.setVisibility(View.VISIBLE);
+        }
+        else{
+            btnAdmin.setVisibility(View.INVISIBLE);
+            btnLivreur.setVisibility(View.INVISIBLE);
+        }
+    }
 
     private void initListeners() {
+        btnAdmin.setOnClickListener(this);
+        btnLivreur.setOnClickListener(this);
         btnPanier.setOnClickListener(this);
         btnFilter.setOnClickListener(this);
         txtPanierCounter.setOnClickListener(this);
@@ -77,6 +101,7 @@ public class pageProductGallery extends AppCompatActivity   implements View.OnCl
 
         if (id == R.id.btn_Panier || id == R.id.pageGallery_txtPanierCounter) {
             Intent intent = new Intent(this, pagePanier.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
         else if (id == R.id.pageGallery_btnFilter)
@@ -97,14 +122,15 @@ public class pageProductGallery extends AppCompatActivity   implements View.OnCl
             recyclerView.setAdapter(adapter);
             recyclerView.getAdapter().notifyDataSetChanged();
 
-            refreshUI();
+
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        txtPanierCounter.setText(String.valueOf(Panier.getInstance().getCartCount()));
+        refreshUI();
+
     }
 
 

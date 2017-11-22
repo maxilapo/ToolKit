@@ -24,6 +24,15 @@ public class User
 
 
 
+
+    public Boolean isAdmin(){
+        return false;
+    }
+
+    public Boolean isLivreur(){
+        return true;
+    }
+
     /************************ Category stuff. Shouldn't be there but anyway ************************/
 
     public void setCategoryArray (ArrayList<Category> catList){

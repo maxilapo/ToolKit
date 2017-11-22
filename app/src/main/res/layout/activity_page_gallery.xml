@@ -30,7 +30,26 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/pageGallery_btnShipping"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_toStartOf="@+id/pageGallery_btnUser"
+                android:visibility="invisible"
+                app:srcCompat="@mipmap/ic_shipping_white"/>
+
+            <ImageView
+                android:id="@+id/pageGallery_btnAdmin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_toStartOf="@+id/pageGallery_btnUser"
+                android:src="@mipmap/ic_admin_white"
+                android:visibility="invisible"
+                app:srcCompat="@mipmap/ic_admin_white"/>
+
+            <ImageView
+                android:id="@+id/pageGallery_btnUser"
                 android:layout_width="45dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="10dp"

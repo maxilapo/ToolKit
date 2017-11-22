@@ -1,6 +1,7 @@
 package com.maxime.toolkit.page;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,9 +18,10 @@ import com.maxime.toolkit.R;
 import com.maxime.toolkit.objects.Panier;
 import com.maxime.toolkit.objects.Product;
 
-public class pagePanier extends AppCompatActivity {
+public class pagePanier extends AppCompatActivity implements View.OnClickListener {
 
     private TextView subTotal;
+    private TextView btnCheckout;
     private RecyclerView recyclerView;
 
     @Override
@@ -29,6 +31,7 @@ public class pagePanier extends AppCompatActivity {
 
         bindUI();
         setupUI();
+        initListeners();
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView = (RecyclerView) findViewById(R.id.panier_ProductList);
@@ -40,11 +43,28 @@ public class pagePanier extends AppCompatActivity {
     }
 
     private  void bindUI () {
-        subTotal = (TextView)  findViewById(R.id.panierPage_Subtotal);
+
+        subTotal = (TextView)  findViewById(R.id.pagePanier_Subtotal);
+        btnCheckout = (TextView) findViewById(R.id.pagePanier_btnCheckout);
     }
 
     private  void setupUI () {
         subTotal.setText(Panier.getInstance().getSubtotalFormatted());
+    }
+
+    private void initListeners() {btnCheckout.setOnClickListener(this); }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+
+        if (id == R.id.pagePanier_btnCheckout) {
+            Intent intent = new Intent(this, pageCheckout.class);
+            //intent.putExtra("productID", currentProduct.getID());
+            startActivity(intent);
+            //startActivityForResult(intent, 1);
+        }
+
     }
 
     private class ImageGalleryAdapter extends RecyclerView.Adapter<pagePanier.ImageGalleryAdapter.MyViewHolder>  {

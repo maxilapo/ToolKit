@@ -52,7 +52,7 @@
         android:background="@android:color/background_light">
 
         <TextView
-            android:id="@+id/panierPage_Subtotal"
+            android:id="@+id/pagePanier_Subtotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -65,7 +65,7 @@
             android:textStyle="bold|italic"/>
 
         <TextView
-            android:id="@+id/panierPage_btnCheckout"
+            android:id="@+id/pagePanier_btnCheckout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
