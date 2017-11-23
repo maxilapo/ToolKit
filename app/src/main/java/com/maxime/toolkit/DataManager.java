@@ -3,6 +3,8 @@ package com.maxime.toolkit;
 import android.util.Log;
 
 import com.maxime.toolkit.objects.Category;
+import com.maxime.toolkit.objects.Client;
+import com.maxime.toolkit.objects.Delivery;
 import com.maxime.toolkit.objects.Evaluation;
 import com.maxime.toolkit.objects.Product;
 import com.maxime.toolkit.objects.User;
@@ -25,8 +27,6 @@ public class DataManager {
 
     private RequestManager _requestManager;
 
-
-
     private String GET = "GET";
     private String POST = "POST";
 
@@ -38,7 +38,6 @@ public class DataManager {
 
         String[] jsonResult = new String[1];
         String url = "product/" + String.valueOf(_id);
-        Product produit;
 
         try {
             jsonResult = _requestManager.httpRequest(GET, url, "");
@@ -78,7 +77,6 @@ public class DataManager {
 
         return getAllProducts();
     }
-
 
     public Product[] getProductsForCategory(int categoryID) {
 
@@ -270,6 +268,80 @@ public class DataManager {
         Evaluation[] evalList = evaluationArray.toArray(new Evaluation[evaluationArray.size()]);
 
         return evalList;
+    }
+
+    public Client getClient(int _id) {
+
+        String[] jsonResult = new String[1];
+        String url = "clients/" + String.valueOf(_id);
+
+        try {
+            jsonResult = _requestManager.httpRequest(GET, url, "");
+        }
+        catch (ExecutionException e) { e.printStackTrace();}
+        catch (InterruptedException e) { e.printStackTrace();}
+
+        try {
+            // Json is in an array, deal with it. 😎
+            JSONArray jsonClientList = new JSONArray(jsonResult[0]);
+            JSONObject jsonClient = jsonClientList.getJSONObject(0);
+
+            int id = jsonClient.getInt("id");
+            String name = jsonClient.getString("name");
+            String email = jsonClient.getString("email");
+            String phone = jsonClient.getString("phone");
+
+            String street = jsonClient.getString("street");
+            String street2 = jsonClient.getString("street2");
+            String city = jsonClient.getString("city");
+            String zip = jsonClient.getString("zip");
+            String province = jsonClient.getString("barcode");
+
+            return new Client(id, name, email, phone, street, street2, city, zip, province);
+        }
+        catch (JSONException e) {e.printStackTrace();}
+
+        return null;
+    }
+
+    public Delivery[] getAllDelivery() throws ExecutionException, InterruptedException, JSONException {
+        String[] jsonResult;
+        ArrayList<Delivery> deliveryArray = new ArrayList<>();
+
+        jsonResult = _requestManager.httpRequest(GET, "saleorders/deliveries", "");
+
+
+
+
+        JSONArray jsonDeliveryList = new JSONArray(jsonResult[0]);
+        for(int i=0; i<jsonDeliveryList.length(); i++)
+        {
+            int id = jsonDeliveryList.getJSONObject(i).getInt("id");
+            int clientID = jsonDeliveryList.getJSONObject(i).getInt("client_id");
+            double total = jsonDeliveryList.getJSONObject(i).getDouble("amount_total");
+
+            if (clientID == 0 || id == 0)
+                continue;
+
+            //Create temp delivery object
+            Delivery tempDelivery = new Delivery(id, total);
+            tempDelivery.setClient(getClient(clientID));
+
+            //Find all the product name
+            JSONArray jsonItemList = jsonDeliveryList.getJSONObject(i).getJSONArray("items");
+            Log.d("max_DATAMANAGER", "json resultLIST bro :" + jsonItemList.toString());
+            for(int j=0; j<jsonItemList.length(); j++){
+                String productName = jsonItemList.getJSONObject(j).getString("name");
+                Log.d("max_DATAMANAGER", "NAME PRODUIT BRO :" + productName);
+                tempDelivery.addProductName(productName);
+            }
+
+            deliveryArray.add(tempDelivery);
+        }
+
+        Delivery[] deliveryList = deliveryArray.toArray(new Delivery[deliveryArray.size()]);
+
+        return deliveryList;
     }
 
 

@@ -109,6 +109,10 @@ public class pageProductGallery extends AppCompatActivity   implements View.OnCl
             Intent intent = new Intent(this, pageFilter.class);
             startActivityForResult(intent, 1);
         }
+        else if (id == R.id.pageGallery_btnShipping){
+            Intent intent = new Intent(this, pageLivraison.class);
+            startActivity(intent);
+        }
     }
 
     @Override
