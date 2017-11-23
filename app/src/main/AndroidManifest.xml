@@ -28,6 +28,12 @@
         </activity>
         <activity android:name=".page.pageCheckout">
         </activity>
+        <activity android:name=".page.pagePayment">
+        </activity>
+        <activity android:name=".page.pageLivraison">
+        </activity>
+        <activity android:name=".page.pageAdmin">
+        </activity>
     </application>
 
 </manifest>
