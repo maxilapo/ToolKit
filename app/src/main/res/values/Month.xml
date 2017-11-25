@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="month_prompt">Month</string>
+
+    <string-array name="month_array">
+        <item>01 - Janvier</item>
+        <item>02 - Février</item>
+        <item>03 - Mars</item>
+        <item>04 - Avril</item>
+        <item>05 - Mai</item>
+        <item>06 - Juin</item>
+        <item>07 - Juillet</item>
+        <item>08 - Août</item>
+        <item>09 - Septembre</item>
+        <item>10 - Octobre</item>
+        <item>11 - Novembre</item>
+        <item>12 - Décembre</item>
+    </string-array>
+
+</resources>

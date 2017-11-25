@@ -41,10 +41,12 @@
             <Spinner
                 android:id="@+id/pagePayment_cbCardType"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="40dp"
+                android:entries="@array/card_type_array"
+                android:prompt="@string/card_type_prompt"/>
 
             <EditText
-                android:id="@+id/pagePayment_txtPayment"
+                android:id="@+id/pagePayment_txtCardNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -62,12 +64,14 @@
             <Spinner
                 android:id="@+id/pagePayment_cbMonth"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="40dp"
+                android:entries="@array/month_array"/>
 
             <Spinner
                 android:id="@+id/pagePayment_cbYear"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="40dp"
+                android:entries="@array/year_array"/>
 
             <EditText
                 android:id="@+id/pagePayment_txtCVV"
@@ -123,7 +127,7 @@
             android:textSize="18sp"/>
 
         <TextView
-            android:id="@+id/pageCheckout_btnNext"
+            android:id="@+id/pagePayment_btnNext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

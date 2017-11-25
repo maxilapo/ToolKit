@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="province_prompt">Choose a province</string>
+
+    <string-array name="province_arrays">
+        <item>Manitoba</item>
+        <item>Québec</item>
+        <item>Alberta</item>
+        <item>British Columbia</item>
+        <item>Saskatchewan</item>
+    </string-array>
+
+</resources>

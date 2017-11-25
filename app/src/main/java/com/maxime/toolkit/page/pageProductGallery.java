@@ -24,7 +24,7 @@ import com.maxime.toolkit.objects.User;
  * Created by Maxime
  */
 
-public class pageProductGallery extends AppCompatActivity   implements View.OnClickListener{
+public class pageProductGallery extends AppCompatActivity implements View.OnClickListener{
 
     private DataManager _dataManager;
 

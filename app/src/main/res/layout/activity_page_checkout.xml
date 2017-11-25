@@ -39,15 +39,16 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/editText4"
+                android:id="@+id/pageCheckout_txtEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Email"
-                android:inputType="textEmailAddress"/>
+                android:inputType="textEmailAddress"
+                android:textColorLink="@color/colorAccent"/>
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/pageCheckout_txtFirstName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -55,7 +56,7 @@
                 />
 
             <EditText
-                android:id="@+id/editText3"
+                android:id="@+id/pageCheckout_txtLastName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -63,7 +64,7 @@
                 />
 
             <EditText
-                android:id="@+id/editText7"
+                android:id="@+id/pageCheckout_txtPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -71,7 +72,7 @@
                 android:inputType="phone"/>
 
             <EditText
-                android:id="@+id/editText8"
+                android:id="@+id/pageCheckout_txtAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -79,7 +80,7 @@
                 android:inputType="textPostalAddress"/>
 
             <EditText
-                android:id="@+id/editText9"
+                android:id="@+id/pageCheckout_txtAddress2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -87,20 +88,22 @@
                 android:inputType="textPersonName"/>
 
             <EditText
-                android:id="@+id/editText10"
+                android:id="@+id/pageCheckout_txtCity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="City"/>
 
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/pageCheckout_cbProvince"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/background_light"/>
+                android:layout_height="40dp"
+                android:entries="@array/province_arrays"
+                android:prompt="@string/province_prompt"
+                />
 
             <EditText
-                android:id="@+id/editText11"
+                android:id="@+id/pageCheckout_txtZIP"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
