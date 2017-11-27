@@ -22,7 +22,7 @@ import org.json.JSONException;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
-public class pageLivraison extends AppCompatActivity  implements View.OnClickListener{
+public class pageLivraison extends AppCompatActivity {
 
     private DataManager _dataManager;
     private SaleOrders[] saleOrdersArray;
@@ -49,22 +49,8 @@ public class pageLivraison extends AppCompatActivity  implements View.OnClickLis
             e.printStackTrace();
         }
 
-
         pageLivraison.LivraisonListAdapter adapter = new pageLivraison.LivraisonListAdapter(this, saleOrdersArray);
         recyclerView.setAdapter(adapter);
-    }
-
-    @Override
-    public void onClick(View v) {
-        int id = v.getId();
-
-        if (id == R.id.pagePanier_btnCheckout) {
-            Intent intent = new Intent(this, pageCheckout.class);
-            //intent.putExtra("productID", currentProduct.getID());
-            startActivity(intent);
-            //startActivityForResult(intent, 1);
-        }
-
     }
 
     private class LivraisonListAdapter extends RecyclerView.Adapter<pageLivraison.LivraisonListAdapter.MyViewHolder>  {
@@ -94,7 +80,6 @@ public class pageLivraison extends AppCompatActivity  implements View.OnClickLis
         {
             SaleOrders saleOrders = mListSaleOrders[position];
 
-            holder.bindName("client");
             holder.bindName(saleOrders.getClient().getName());
             holder.bindEmail(saleOrders.getClient().getEmail());
             holder.bindPhone(saleOrders.getClient().getPhone());

@@ -94,4 +94,18 @@
         android:text="TextView"
         android:textSize="12sp"/>
 
+    <TextView
+        android:id="@+id/cellDelivery_txtTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/cellDelivery_txtProduits"
+        android:layout_margin="8dp"
+        android:text="22.33$"
+        android:textColor="#454545"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="invisible"/>
+
 </RelativeLayout>

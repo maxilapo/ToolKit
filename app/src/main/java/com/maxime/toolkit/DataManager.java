@@ -346,6 +346,42 @@ public class DataManager {
         return saleOrdersList;
     }
 
+    public SaleOrders[] getAllSaleorders() throws ExecutionException, InterruptedException, JSONException {
+        String[] jsonResult;
+        ArrayList<SaleOrders> saleOrdersArray = new ArrayList<>();
+
+        jsonResult = _requestManager.httpRequest(GET, "saleorders/", "");
+
+        JSONArray jsonDeliveryList = new JSONArray(jsonResult[0]);
+        for(int i=0; i<jsonDeliveryList.length(); i++)
+        {
+            int id = jsonDeliveryList.getJSONObject(i).getInt("id");
+            int clientID = jsonDeliveryList.getJSONObject(i).getInt("client_id");
+            double total = jsonDeliveryList.getJSONObject(i).getDouble("amount_total");
+
+            if (clientID == 0 || id == 0)
+                continue;
+
+            //Create temp delivery object
+            SaleOrders tempSaleOrders = new SaleOrders(id, total);
+            tempSaleOrders.setClient(getClient(clientID));
+
+            //Find all the product name
+            JSONArray jsonItemList = jsonDeliveryList.getJSONObject(i).getJSONArray("items");
+            for(int j=0; j<jsonItemList.length(); j++){
+                String productName = jsonItemList.getJSONObject(j).getString("name");
+                int productQty = jsonItemList.getJSONObject(j).getInt("quantity");
+                Product tempProduct = new Product(productName, productQty);
+                tempSaleOrders.addProductName(tempProduct);
+            }
+
+            saleOrdersArray.add(tempSaleOrders);
+        }
+
+        SaleOrders[] saleOrdersList = saleOrdersArray.toArray(new SaleOrders[saleOrdersArray.size()]);
+
+        return saleOrdersList;
+    }
 
     /********************************** POST *******************************************/
 

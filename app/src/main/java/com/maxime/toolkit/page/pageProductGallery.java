@@ -126,6 +126,10 @@ public class pageProductGallery extends AppCompatActivity implements View.OnClic
             Intent intent = new Intent(getApplicationContext(), pageLogin.class);
             startActivity(intent);
         }
+        else if(id == R.id.pageGallery_btnAdmin){
+            Intent intent = new Intent(getApplicationContext(), pageAdmin.class);
+            startActivity(intent);
+        }
     }
 
     @Override

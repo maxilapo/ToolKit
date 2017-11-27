@@ -31,6 +31,8 @@ public class SaleOrders {
         return total;
     }
 
+    public String getTotalFormatted (){ return String.format("%.2f$", getTotal()); }
+
     public String getState() {
         return state;
     }
