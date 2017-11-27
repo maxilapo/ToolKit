@@ -28,8 +28,9 @@ public class DataManager {
 
     private RequestManager _requestManager;
 
-    private String GET = "GET";
-    private String POST = "POST";
+    private final String className = "app_DataManager";
+    private final String GET = "GET";
+    private final String POST = "POST";
 
     public DataManager() {
         _requestManager = new RequestManager();
@@ -487,8 +488,28 @@ public class DataManager {
     }
 
 
+    public boolean login(String email, String password) throws JSONException, ExecutionException, InterruptedException {
 
+        String[] jsonResult = new String[1];
+        JSONObject jsonParams = new JSONObject();
 
+        jsonParams.put("email", email);
+        jsonParams.put("password", password);
 
+        jsonResult = _requestManager.httpRequest(POST, "users/login", jsonParams.toString());
+        JSONObject jsonClient = new JSONObject(jsonResult[0].toString());
 
+        if (jsonClient.has("_id")){
+            String id = jsonClient.getString("_id");
+            String email2 = jsonClient.getString("email");
+            String role = jsonClient.getString("role");
+            String token = jsonClient.getString("token");
+
+            User.getInstance().setUser(id, email2, role, token);
+
+            return true;
+        }
+
+        return false;
+    }
 }

@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                android:layout_toStartOf="@+id/pageGallery_btnUser"
+                android:layout_toStartOf="@+id/pageGallery_btnLogin"
                 android:visibility="invisible"
                 app:srcCompat="@mipmap/ic_shipping_white"/>
 
@@ -43,13 +43,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                android:layout_toStartOf="@+id/pageGallery_btnUser"
+                android:layout_toStartOf="@+id/pageGallery_btnLogin"
+                android:padding="4dp"
                 android:src="@mipmap/ic_admin_white"
-                android:visibility="invisible"
+                android:visibility="visible"
                 app:srcCompat="@mipmap/ic_admin_white"/>
 
             <ImageView
-                android:id="@+id/pageGallery_btnUser"
+                android:id="@+id/pageGallery_btnLogin"
                 android:layout_width="45dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="10dp"

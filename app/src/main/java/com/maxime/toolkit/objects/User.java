@@ -1,5 +1,7 @@
 package com.maxime.toolkit.objects;
 
+import android.util.Log;
+
 import com.maxime.toolkit.DataManager;
 
 import java.util.ArrayList;
@@ -12,6 +14,12 @@ public class User
 {
     private static final User ourInstance = new User();
 
+    private final String className = "app_User";
+    private String id;
+    private String email;
+    private String role;
+    private String token;
+
     public ArrayList<Category> categoryArray = new ArrayList<>();
 
     public static User getInstance() {
@@ -19,18 +27,62 @@ public class User
     }
 
     private User() {
-
     }
 
-
-
-
     public Boolean isAdmin(){
-        return false;
+        if (role == null)
+            return false;
+
+        if (role.equals("admin"))
+            return true;
+        else
+            return false;
     }
 
     public Boolean isLivreur(){
+        if (role == null)
+            return false;
+
+        if (role.equals("livreur"))
+            return true;
+        else
+            return false;
+    }
+
+    public Boolean isConnected(){
+        if (email == null || email == "")
+            return false;
         return true;
+    }
+
+    public void setUser(String _id, String _email, String _role, String _token){
+        id = _id;
+        email = _email;
+        role = _role;
+        token = _token;
+    }
+
+    public void resetUser(){
+        id = null;
+        email = null;
+        role = null;
+        token = null;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public String getToken() {
+        return token;
     }
 
     /************************ Category stuff. Shouldn't be there but anyway ************************/

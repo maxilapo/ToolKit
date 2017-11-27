@@ -55,7 +55,6 @@ public class RequestManager
         Response response = _httpClient.newCall(request).execute();
 
         String resp = response.body().string();
-
         return resp;
     }
 

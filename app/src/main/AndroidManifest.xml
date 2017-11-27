@@ -21,11 +21,6 @@
         <activity android:name=".page.pageReview"/>
         <activity android:name=".page.pagePanier"/>
         <activity android:name=".page.pageFilter"/>
-        <activity
-            android:name=".page.profileActivity"
-            android:label="@string/title_activity_profile"
-            android:theme="@style/AppTheme">
-        </activity>
         <activity android:name=".page.pageCheckout">
         </activity>
         <activity android:name=".page.pagePayment">
@@ -35,6 +30,8 @@
         <activity android:name=".page.pageAdmin">
         </activity>
         <activity android:name=".page.pageConfirmation">
+        </activity>
+        <activity android:name=".page.pageLogin">
         </activity>
     </application>
 

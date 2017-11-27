@@ -1,10 +1,8 @@
 package com.maxime.toolkit.page;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,10 +26,12 @@ import com.maxime.toolkit.objects.User;
 
 public class pageProductGallery extends AppCompatActivity implements View.OnClickListener{
 
+    private final String className = "app_pageProductGallery";
     private DataManager _dataManager;
 
     private RecyclerView recyclerView;
 
+    private ImageView btnLogin;
     private ImageView btnAdmin;
     private ImageView btnLivreur;
     private ImageView btnPanier;
@@ -63,6 +63,7 @@ public class pageProductGallery extends AppCompatActivity implements View.OnClic
     }
 
     private  void bindUI () {
+        btnLogin = (ImageView) findViewById(R.id.pageGallery_btnLogin);
         btnAdmin = (ImageView)  findViewById(R.id.pageGallery_btnAdmin);
         btnLivreur = (ImageView)  findViewById(R.id.pageGallery_btnShipping);
         btnPanier = (ImageView)  findViewById(R.id.btn_Panier);
@@ -79,18 +80,22 @@ public class pageProductGallery extends AppCompatActivity implements View.OnClic
         if (User.getInstance().isAdmin()){
             btnAdmin.setVisibility(View.VISIBLE);
             btnLivreur.setVisibility(View.INVISIBLE);
+            Log.d(className, "SHOW ADMIN OPTION : ");
         }
         else if (User.getInstance().isLivreur()){
             btnAdmin.setVisibility(View.INVISIBLE);
             btnLivreur.setVisibility(View.VISIBLE);
+            Log.d(className, "SHOW LIVREUR OPTION : ");
         }
         else{
             btnAdmin.setVisibility(View.INVISIBLE);
             btnLivreur.setVisibility(View.INVISIBLE);
+            Log.d(className, "SHOW CLIENT OPTION : ");
         }
     }
 
     private void initListeners() {
+        btnLogin.setOnClickListener(this);
         btnAdmin.setOnClickListener(this);
         btnLivreur.setOnClickListener(this);
         btnPanier.setOnClickListener(this);
@@ -105,7 +110,7 @@ public class pageProductGallery extends AppCompatActivity implements View.OnClic
 
         if (id == R.id.btn_Panier || id == R.id.pageGallery_txtPanierCounter) {
             Intent intent = new Intent(this, pagePanier.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
         else if (id == R.id.pageGallery_btnFilter)
@@ -115,6 +120,10 @@ public class pageProductGallery extends AppCompatActivity implements View.OnClic
         }
         else if (id == R.id.pageGallery_btnShipping){
             Intent intent = new Intent(getApplicationContext(), pageLivraison.class);
+            startActivity(intent);
+        }
+        else if(id == R.id.pageGallery_btnLogin){
+            Intent intent = new Intent(getApplicationContext(), pageLogin.class);
             startActivity(intent);
         }
     }
@@ -134,6 +143,7 @@ public class pageProductGallery extends AppCompatActivity implements View.OnClic
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d(className, "onResume");
         refreshUI();
     }
 
