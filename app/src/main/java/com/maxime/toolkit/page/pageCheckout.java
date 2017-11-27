@@ -14,11 +14,11 @@ import com.maxime.toolkit.R;
 import com.maxime.toolkit.objects.Client;
 
 import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.concurrent.ExecutionException;
 
 public class pageCheckout extends AppCompatActivity implements View.OnClickListener {
+
+    private final String className = "pageCheckout";
 
     private TextView btnNext;
     private TextView txtEmail;
@@ -30,7 +30,6 @@ public class pageCheckout extends AppCompatActivity implements View.OnClickListe
     private TextView txtCity;
     private TextView txtZIP;
     private Spinner cbProvince;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,43 +63,49 @@ public class pageCheckout extends AppCompatActivity implements View.OnClickListe
 
         int id = v.getId();
 
-        if (id == R.id.pageCheckout_btnNext) {
+        if (id != R.id.pageCheckout_btnNext)
+            return;
 
-            String email = txtEmail.getText().toString();
-            String firstname = txtFirstname.getText().toString();
-            String lastname = txtLastname.getText().toString();
-            String phone = txtPhone.getText().toString();
-            String adress = txtAddress.getText().toString();
-            String adress2 = txtAddress2.getText().toString();
-            String city = txtCity.getText().toString();
-            String zip = txtZIP.getText().toString();
-            String province = cbProvince.getSelectedItem().toString();
+        String email = txtEmail.getText().toString();
+        String firstname = txtFirstname.getText().toString();
+        String lastname = txtLastname.getText().toString();
+        String phone = txtPhone.getText().toString();
+        String adress = txtAddress.getText().toString();
+        String adress2 = txtAddress2.getText().toString();
+        String city = txtCity.getText().toString();
+        String zip = txtZIP.getText().toString();
+        String province = cbProvince.getSelectedItem().toString();
 
-            if (email.length() == 0 || firstname.length() == 0 || lastname.length() == 0 || phone.length() == 0 || adress.length() == 0 ||
-                    adress2.length() == 0 || city.length() == 0 || zip.length() == 0 || province.length() == 0) {
-                //Show UI about missing information
-                return;
-            }
+        if (email.length() == 0 || firstname.length() == 0 || lastname.length() == 0 || phone.length() == 0 || adress.length() == 0 ||
+                adress2.length() == 0 || city.length() == 0 || zip.length() == 0 || province.length() == 0) {
+            //Show UI about missing information
+            return;
+        }
 
-            Intent intent = new Intent(this, pagePayment.class);
+            /*Intent intent = new Intent(this, pagePayment.class);
             intent.putExtra("clientID", 7);
-            startActivity(intent);
+            startActivity(intent);*/
 
-            Log.d("max_CHECKOUT", "onClick, addClient");
-            /*DataManager _dataManager = new DataManager();
-            try {
-                Client newClient = _dataManager.addClient(email, firstname, lastname, phone, adress, adress2, city, zip, province);
+        Log.d(className, "pass validation");
 
-                if (newClient != null) {
-                    Intent intent = new Intent(this, pagePayment.class);
-                    intent.putExtra("clientID", newClient.getId());
-                    startActivity(intent);
-                }
+        DataManager _dataManager = new DataManager();
+        try {
+            Client newClient = _dataManager.addClient(email, firstname, lastname, phone, adress, adress2, city, zip, province);
+
+            if (newClient != null) {
+                Log.d(className, "Client ID : " + newClient.getId());
+                Intent intent = new Intent(getApplicationContext(), pagePayment.class);
+                intent.putExtra("clientID", newClient.getId());
+                startActivity(intent);
+            } else {
+                //Show UI about error
             }
-            catch (JSONException e) { e.printStackTrace();}
-            catch (ExecutionException e) {e.printStackTrace();}
-            catch (InterruptedException e) {e.printStackTrace();}*/
-
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }

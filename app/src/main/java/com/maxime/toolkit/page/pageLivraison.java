@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.maxime.toolkit.DataManager;
 import com.maxime.toolkit.R;
-import com.maxime.toolkit.objects.Delivery;
+import com.maxime.toolkit.objects.SaleOrders;
 
 import org.json.JSONException;
 
@@ -25,7 +25,7 @@ import java.util.concurrent.ExecutionException;
 public class pageLivraison extends AppCompatActivity  implements View.OnClickListener{
 
     private DataManager _dataManager;
-    private Delivery[] deliveryArray;
+    private SaleOrders[] saleOrdersArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class pageLivraison extends AppCompatActivity  implements View.OnClickLis
         _dataManager = new DataManager();
 
         try {
-            deliveryArray = _dataManager.getAllDelivery();
+            saleOrdersArray = _dataManager.getAllDelivery();
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -50,7 +50,7 @@ public class pageLivraison extends AppCompatActivity  implements View.OnClickLis
         }
 
 
-        pageLivraison.LivraisonListAdapter adapter = new pageLivraison.LivraisonListAdapter(this, deliveryArray);
+        pageLivraison.LivraisonListAdapter adapter = new pageLivraison.LivraisonListAdapter(this, saleOrdersArray);
         recyclerView.setAdapter(adapter);
     }
 
@@ -69,12 +69,12 @@ public class pageLivraison extends AppCompatActivity  implements View.OnClickLis
 
     private class LivraisonListAdapter extends RecyclerView.Adapter<pageLivraison.LivraisonListAdapter.MyViewHolder>  {
 
-        private Delivery[] mListDelivery;
+        private SaleOrders[] mListSaleOrders;
         private Context mContext;
 
-        public LivraisonListAdapter(Context context, Delivery[] _listDelivery) {
+        public LivraisonListAdapter(Context context, SaleOrders[] _listSaleOrders) {
             mContext = context;
-            mListDelivery = _listDelivery;
+            mListSaleOrders = _listSaleOrders;
         }
 
         @Override
@@ -92,23 +92,23 @@ public class pageLivraison extends AppCompatActivity  implements View.OnClickLis
         @Override
         public void onBindViewHolder(pageLivraison.LivraisonListAdapter.MyViewHolder holder, int position)
         {
-            Delivery delivery = mListDelivery[position];
+            SaleOrders saleOrders = mListSaleOrders[position];
 
             holder.bindName("client");
-            holder.bindName(delivery.getClient().getName());
-            holder.bindEmail(delivery.getClient().getEmail());
-            holder.bindPhone(delivery.getClient().getPhone());
-            holder.bindProduits(delivery.formattedProductList());
+            holder.bindName(saleOrders.getClient().getName());
+            holder.bindEmail(saleOrders.getClient().getEmail());
+            holder.bindPhone(saleOrders.getClient().getPhone());
+            holder.bindProduits(saleOrders.formattedProductList());
 
-            holder.bindAddress(delivery.getClient().getStreet());
-            holder.bindCityZIP(delivery.getClient().getCity() + ", " + delivery.getClient().getZip());
-            holder.bindCountryProvince(delivery.getClient().getProvince() + ", " + delivery.getClient().getCountry());
+            holder.bindAddress(saleOrders.getClient().getStreet());
+            holder.bindCityZIP(saleOrders.getClient().getCity() + ", " + saleOrders.getClient().getZip());
+            holder.bindCountryProvince(saleOrders.getClient().getProvince() + ", " + saleOrders.getClient().getCountry());
         }
 
         @Override
         public int getItemCount()
         {
-            return (mListDelivery.length);
+            return (mListSaleOrders.length);
         }
 
 

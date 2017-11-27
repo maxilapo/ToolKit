@@ -61,10 +61,8 @@ public class Panier {
     }
 
     public int decrementProduit(int productID) {
-        for(Product p : productArray)
-        {
-            if(p.getID() != 0 && p.getID() == productID)
-            {
+        for(Product p : productArray) {
+            if(p.getID() != 0 && p.getID() == productID) {
                 p.decrementQuantity();
 
                 //If 0 quantity, remove object.
@@ -79,21 +77,40 @@ public class Panier {
     }
 
     public double getSubtotal() {
-
         double subtotal = 0;
         for(Product p : productArray) {
             subtotal += p.getQuantity() * p.getPrice();
         }
-
         return  subtotal;
     }
 
+    public double getTaxes() { return  getSubtotal() * 0.15; }
+    public double getTotal() { return getSubtotal() + getTaxes(); }
+    public String getTaxesFormatted (){ return String.format("%.2f$", getTaxes()); }
+    public String getTotalFormatted (){ return String.format("%.2f$", getTotal()); }
+
     public String getSubtotalFormatted() {
-
         double subtotal = getSubtotal();
-
         String formatedTotal = String.format("%.2f$", subtotal);
         return formatedTotal;
+    }
+
+    public String formattedProductList(){
+
+        String listName = "";
+        for(Product pro : productArray) {
+            String qty = "";
+            if (pro.getQuantity() > 1)
+                qty = " (" + pro.getQuantity() + ")";
+
+            listName += "→ " + pro.getTitle() + qty + "...... " + String.format("%.2f$", pro.getPrice()*pro.getQuantity())  + "\n";
+        }
+
+        return listName;
+    }
+
+    public void viderPanier() {
+        productArray = new ArrayList<Product>();
     }
 
 
@@ -112,8 +129,5 @@ public class Panier {
 
         return productList;
     }
-
-
-
 
 }

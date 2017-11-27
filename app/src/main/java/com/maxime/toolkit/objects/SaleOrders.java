@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Created by Maxime on 2017-10-04.
  */
 
-public class Delivery {
+public class SaleOrders {
 
     int    id;
     double total;
@@ -17,7 +17,7 @@ public class Delivery {
 
     /*********************************** Constructor ************************************/
 
-    public Delivery(int _id, double _total) {
+    public SaleOrders(int _id, double _total) {
         this.id = _id;
         this.total = _total;
     }

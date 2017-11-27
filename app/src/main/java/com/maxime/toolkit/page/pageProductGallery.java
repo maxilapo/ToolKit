@@ -1,8 +1,10 @@
 package com.maxime.toolkit.page;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -108,11 +110,11 @@ public class pageProductGallery extends AppCompatActivity implements View.OnClic
         }
         else if (id == R.id.pageGallery_btnFilter)
         {
-            Intent intent = new Intent(this, pageFilter.class);
+            Intent intent = new Intent(getApplicationContext(), pageFilter.class);
             startActivityForResult(intent, 1);
         }
         else if (id == R.id.pageGallery_btnShipping){
-            Intent intent = new Intent(this, pageLivraison.class);
+            Intent intent = new Intent(getApplicationContext(), pageLivraison.class);
             startActivity(intent);
         }
     }
@@ -122,13 +124,10 @@ public class pageProductGallery extends AppCompatActivity implements View.OnClic
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK){
-
             //Update the data list.
             pageProductGallery.ImageGalleryAdapter adapter = new pageProductGallery.ImageGalleryAdapter(this, _dataManager.getProducts());
             recyclerView.setAdapter(adapter);
             recyclerView.getAdapter().notifyDataSetChanged();
-
-
         }
     }
 
@@ -136,12 +135,7 @@ public class pageProductGallery extends AppCompatActivity implements View.OnClic
     protected void onResume() {
         super.onResume();
         refreshUI();
-
     }
-
-
-
-
 
     private class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapter.MyViewHolder> {
 

@@ -34,6 +34,8 @@
         </activity>
         <activity android:name=".page.pageAdmin">
         </activity>
+        <activity android:name=".page.pageConfirmation">
+        </activity>
     </application>
 
 </manifest>

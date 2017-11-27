@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.maxime.toolkit.objects.Category;
 import com.maxime.toolkit.objects.Client;
-import com.maxime.toolkit.objects.Delivery;
+import com.maxime.toolkit.objects.SaleOrders;
 import com.maxime.toolkit.objects.Evaluation;
 import com.maxime.toolkit.objects.Product;
 import com.maxime.toolkit.objects.User;
@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -305,14 +306,11 @@ public class DataManager {
         return null;
     }
 
-    public Delivery[] getAllDelivery() throws ExecutionException, InterruptedException, JSONException {
+    public SaleOrders[] getAllDelivery() throws ExecutionException, InterruptedException, JSONException {
         String[] jsonResult;
-        ArrayList<Delivery> deliveryArray = new ArrayList<>();
+        ArrayList<SaleOrders> saleOrdersArray = new ArrayList<>();
 
         jsonResult = _requestManager.httpRequest(GET, "saleorders/deliveries", "");
-
-
-
 
         JSONArray jsonDeliveryList = new JSONArray(jsonResult[0]);
         for(int i=0; i<jsonDeliveryList.length(); i++)
@@ -325,8 +323,8 @@ public class DataManager {
                 continue;
 
             //Create temp delivery object
-            Delivery tempDelivery = new Delivery(id, total);
-            tempDelivery.setClient(getClient(clientID));
+            SaleOrders tempSaleOrders = new SaleOrders(id, total);
+            tempSaleOrders.setClient(getClient(clientID));
 
             //Find all the product name
             JSONArray jsonItemList = jsonDeliveryList.getJSONObject(i).getJSONArray("items");
@@ -334,15 +332,17 @@ public class DataManager {
                 String productName = jsonItemList.getJSONObject(j).getString("name");
                 int productQty = jsonItemList.getJSONObject(j).getInt("quantity");
                 Product tempProduct = new Product(productName, productQty);
-                tempDelivery.addProductName(tempProduct);
+                tempSaleOrders.addProductName(tempProduct);
             }
 
-            deliveryArray.add(tempDelivery);
+
+
+            saleOrdersArray.add(tempSaleOrders);
         }
 
-        Delivery[] deliveryList = deliveryArray.toArray(new Delivery[deliveryArray.size()]);
+        SaleOrders[] saleOrdersList = saleOrdersArray.toArray(new SaleOrders[saleOrdersArray.size()]);
 
-        return deliveryList;
+        return saleOrdersList;
     }
 
 
@@ -421,7 +421,7 @@ public class DataManager {
         return null;
     }
 
-    public Client addSaleOrders (int clientID, double totalPrice, Product[] listProduit) throws JSONException, ExecutionException, InterruptedException {
+    public boolean addSaleOrders (int clientID, double totalPrice, Product[] listProduit) throws JSONException, ExecutionException, InterruptedException {
 
         String[] jsonResult = new String[1];
         JSONObject jsonParams = new JSONObject();
@@ -443,35 +443,52 @@ public class DataManager {
 
         jsonParams.put("items", jsonArrayProduit);
 
-
         Log.d("max_DATAMANAGER", "JSON SALEORDERS : " +  jsonParams.toString());
-/*
-        jsonResult = _requestManager.httpRequest(POST, "clients/", jsonParams.toString());
 
-        JSONArray jsonClient = new JSONArray(jsonResult[0]);
-        for(int i=0; i<jsonClient.length(); i++)
+        jsonResult = _requestManager.httpRequest(POST, "saleorders/", jsonParams.toString());
+
+        JSONArray jsonSale = new JSONArray(jsonResult[0]);
+        for(int i=0; i<jsonSale.length(); i++)
         {
-            if(jsonClient.getJSONObject(i).has("id")){
-                int id = jsonClient.getJSONObject(i).getInt("id");
-                return getClient(id);
+            if(jsonSale.getJSONObject(i).has("id")){
+                return true;
             }
         }
 
-            {
-        "client_id": 7,
-        "amount_total": 37.43,
-        "items": [
-            {
-                "id": 15,
-                "name": "Contenant antistatique",
-                "list_price": 15,
-                "quantity": 2
-            }
-        ],
-        "id": 76
+        return false;
     }
 
-        */
-        return null;
+    public boolean addCreditCard (int clientID, String type, BigInteger cardNumber, int month, int year, String holder, int CVV) throws JSONException, ExecutionException, InterruptedException {
+
+        String[] jsonResult = new String[1];
+        JSONObject jsonParams = new JSONObject();
+
+        jsonParams.put("client_id", clientID);
+        jsonParams.put("type", type);
+        jsonParams.put("card_number", cardNumber);
+        jsonParams.put("card_month", month);
+        jsonParams.put("card_year", year);
+        jsonParams.put("card_holder", holder);
+        jsonParams.put("cvv", CVV);
+
+        Log.d("max_DATAMANAGER", "JSON creditcard : " +  jsonParams.toString());
+
+        jsonResult = _requestManager.httpRequest(POST, "creditcards/", jsonParams.toString());
+
+        JSONArray jsonCCDone = new JSONArray(jsonResult[0]);
+        for(int i=0; i<jsonCCDone.length(); i++)
+        {
+            if(jsonCCDone.getJSONObject(i).has("id")){
+                return true;
+            }
+        }
+
+        return false;
     }
+
+
+
+
+
+
 }

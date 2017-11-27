@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/border"
+    tools:context="com.maxime.toolkit.page.pageConfirmation">
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="false"
+        android:layout_marginTop="16dp"
+        android:editable="false"
+        android:text="Thank you for shopping with us!"
+        android:textColor="#454545"
+        android:textSize="24sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/pageConfirmation_txtConfirmNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView5"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:text="Confirmation number : iu182j2j29"/>
+
+    <RelativeLayout
+        android:id="@+id/relativeBill"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pageConfirmation_txtConfirmNumber"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="40dp"
+        android:background="#f0f0f0">
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/pageConfirmation_txtConfirmNumber"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Order Summary"
+            android:textColor="#454545"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/textView8"
+            android:layout_marginBottom="3dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="3dp"
+            app:srcCompat="@android:color/darker_gray"/>
+
+        <TextView
+            android:id="@+id/pageConfirmation_txtProductList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView2"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:lineSpacingExtra="7sp"
+            android:text="Produit XYZ ..........."
+            android:textColor="#525252"/>
+
+        <TextView
+            android:id="@+id/pageConfirmation_txtSubtotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/pageConfirmation_txtProductList"
+            android:layout_marginEnd="10dp"
+            android:text="Subtotal : 33.25$"
+            android:textColor="#454545"/>
+
+        <TextView
+            android:id="@+id/pageConfirmation_txtTaxes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/pageConfirmation_txtSubtotal"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="5dp"
+            android:text="Taxes : 22.23$"
+            android:textColor="#454545"/>
+
+        <TextView
+            android:id="@+id/pageConfirmation_txtTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/pageConfirmation_txtTaxes"
+            android:layout_margin="10dp"
+            android:text="Total : 33.25$"
+            android:textColor="#000000"
+            android:textStyle="bold"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/pageConfirmation_btnGallery"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/relativeBill"
+        android:layout_margin="20dp"
+        android:layout_weight="1"
+        android:background="@drawable/rounded_rectangle"
+        android:gravity="center"
+        android:text="Continue shopping..."
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textSize="24sp"
+        android:textStyle="bold"/>
+
+
+</RelativeLayout>

@@ -1,7 +1,9 @@
 package com.maxime.toolkit.page;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +23,8 @@ import com.maxime.toolkit.objects.Product;
 public class pagePanier extends AppCompatActivity implements View.OnClickListener {
 
     private TextView subTotal;
+    private TextView taxes;
+    private TextView total;
     private TextView btnCheckout;
     private RecyclerView recyclerView;
 
@@ -43,13 +47,16 @@ public class pagePanier extends AppCompatActivity implements View.OnClickListene
     }
 
     private  void bindUI () {
-
-        subTotal = (TextView)  findViewById(R.id.pagePanier_Subtotal);
+        subTotal    = (TextView)  findViewById(R.id.pagePanier_txtSubtotal);
+        taxes       = (TextView)  findViewById(R.id.pagePanier_txtTaxes);
+        total       = (TextView)  findViewById(R.id.pagePanier_txtTotal);
         btnCheckout = (TextView) findViewById(R.id.pagePanier_btnCheckout);
     }
 
     private  void setupUI () {
-        subTotal.setText(Panier.getInstance().getSubtotalFormatted());
+        subTotal.setText("Subtotal : " + Panier.getInstance().getSubtotalFormatted());
+        taxes.setText("Taxes : " + Panier.getInstance().getTaxesFormatted());
+        total.setText("Total : " + Panier.getInstance().getTotalFormatted());
     }
 
     private void initListeners() {btnCheckout.setOnClickListener(this); }
@@ -58,13 +65,30 @@ public class pagePanier extends AppCompatActivity implements View.OnClickListene
     public void onClick(View v) {
         int id = v.getId();
 
-        if (id == R.id.pagePanier_btnCheckout) {
-            Intent intent = new Intent(this, pageCheckout.class);
-            //intent.putExtra("productID", currentProduct.getID());
-            startActivity(intent);
-            //startActivityForResult(intent, 1);
-        }
+        if (Panier.getInstance().getCartCount() <= 0)
+            return;
 
+        if (id == R.id.pagePanier_btnCheckout) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Are you sure you want to purchases these items ?")
+                    .setTitle("Confirm");
+
+            builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // User clicked OK button
+                    Intent intent = new Intent(getApplicationContext(), pageCheckout.class);
+                    startActivity(intent);
+                }
+            });
+
+            builder.setNegativeButton("Recheck", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                }
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
     }
 
     private class ImageGalleryAdapter extends RecyclerView.Adapter<pagePanier.ImageGalleryAdapter.MyViewHolder>  {
@@ -79,14 +103,10 @@ public class pagePanier extends AppCompatActivity implements View.OnClickListene
 
         @Override
         public pagePanier.ImageGalleryAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
             Context context = parent.getContext();
             LayoutInflater inflater = LayoutInflater.from(context);
-
             View photoView = inflater.inflate(R.layout.cell_panier, parent, false);
-
             pagePanier.ImageGalleryAdapter.MyViewHolder viewHolder = new pagePanier.ImageGalleryAdapter.MyViewHolder(photoView);
-
             return viewHolder;
         }
 
@@ -97,7 +117,6 @@ public class pagePanier extends AppCompatActivity implements View.OnClickListene
             ImageView imageView = holder.mPhotoImageView;
 
             holder.bindTitle(produit.getTitle());
-
             String formatedPrice = String.format("%.2f$", produit.getPrice());
             holder.bindPrice(formatedPrice);
             holder.bindQuantity(String.valueOf(produit.getQuantity()));
@@ -117,25 +136,20 @@ public class pagePanier extends AppCompatActivity implements View.OnClickListene
             return (mListProduct.length);
         }
 
-
         public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
             public ImageView mPhotoImageView;
             public TextView mTitleTextView;
             public TextView mPriceTextView;
             public TextView mQuantityTextView;
-
             public ImageView mBtnAddItem;
             public ImageView mBtnRemoveItem;
-
 
             public void bindTitle(String text){ mTitleTextView.setText(text); }
             public void bindPrice(String text){mPriceTextView.setText(text);}
             public void bindQuantity(String text){mQuantityTextView.setText(text);}
-
             public void bindButtonAdd(int productID){ mBtnAddItem.setTag(productID); }
             public void bindButtonRemove(int productID){ mBtnRemoveItem.setTag(productID); }
-
 
             public MyViewHolder(View itemView) {
 
@@ -144,15 +158,12 @@ public class pagePanier extends AppCompatActivity implements View.OnClickListene
                 mTitleTextView = (TextView) itemView.findViewById(R.id.panierProduct_Title);
                 mPriceTextView = (TextView) itemView.findViewById(R.id.panierProduct_Price);
                 mQuantityTextView = (TextView) itemView.findViewById(R.id.panierProduct_Quantity);
-
                 mBtnAddItem = (ImageView) itemView.findViewById(R.id.panierProduct_btnAddItem);
                 mBtnRemoveItem = (ImageView) itemView.findViewById(R.id.panierProduct_btnRemoveItem);
-
 
                 mBtnAddItem.setOnClickListener(this);
                 mBtnRemoveItem.setOnClickListener(this);
 
-                itemView.setOnClickListener(this);
             }
 
 

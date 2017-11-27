@@ -15,7 +15,7 @@
         android:layout_alignParentBottom="false"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/cellDelivery_txtCountry"
-        android:layout_margin="5dp"
+        android:layout_margin="3dp"
         app:srcCompat="@mipmap/ic_google_maps"/>
 
     <TextView
@@ -51,10 +51,13 @@
         android:id="@+id/cellDelivery_txtProduits"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/cellDelivery_txtPhone"
         android:layout_marginBottom="10dp"
-        android:layout_marginStart="25dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
+        android:layout_toStartOf="@+id/cellDelivery_btnMaps"
+        android:lineSpacingExtra="7sp"
         android:text="→ iPhone Case 7 Plus"
         android:textColor="#525252"
         android:textSize="12sp"
