@@ -100,6 +100,9 @@ public class pageLivraison extends AppCompatActivity  implements View.OnClickLis
             holder.bindPhone(delivery.getClient().getPhone());
             holder.bindProduits(delivery.formattedProductList());
 
+            holder.bindAddress(delivery.getClient().getStreet());
+            holder.bindCityZIP(delivery.getClient().getCity() + ", " + delivery.getClient().getZip());
+            holder.bindCountryProvince(delivery.getClient().getProvince() + ", " + delivery.getClient().getCountry());
         }
 
         @Override
@@ -117,6 +120,10 @@ public class pageLivraison extends AppCompatActivity  implements View.OnClickLis
             public TextView mPhoneTextView;
             public TextView mProduitsTextView;
 
+            public TextView mAddressTextView;
+            public TextView mCityTextView;
+            public TextView mCountryTextView;
+
             public MyViewHolder(View itemView) {
 
                 super(itemView);
@@ -127,14 +134,20 @@ public class pageLivraison extends AppCompatActivity  implements View.OnClickLis
                 mPhoneTextView = (TextView) itemView.findViewById(R.id.cellDelivery_txtPhone);
                 mProduitsTextView = (TextView) itemView.findViewById(R.id.cellDelivery_txtProduits);
 
+                mAddressTextView = (TextView) itemView.findViewById(R.id.cellDelivery_txtAddress);
+                mCityTextView    = (TextView) itemView.findViewById(R.id.cellDelivery_txtCity);
+                mCountryTextView = (TextView) itemView.findViewById(R.id.cellDelivery_txtCountry);
+
                 btnMaps.setOnClickListener(this);
-                //itemView.setOnClickListener(this);
             }
 
             public void bindName(String text){ mNameTextView.setText(text); }
             public void bindEmail(String text){ mEmailTextView.setText(text); }
             public void bindPhone(String text){mPhoneTextView.setText(text);}
             public void bindProduits(String text){mProduitsTextView.setText(text);}
+            public void bindAddress(String text){mAddressTextView.setText(text);}
+            public void bindCityZIP(String text){mCityTextView.setText(text);}
+            public void bindCountryProvince(String text){mCountryTextView.setText(text);}
 
             @Override
             public void onClick(View view) {

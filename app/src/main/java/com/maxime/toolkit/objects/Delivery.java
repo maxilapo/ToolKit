@@ -12,7 +12,7 @@ public class Delivery {
     int    id;
     double total;
     String state;
-    ArrayList<String> listProduit = new ArrayList<>();;
+    ArrayList<Product> listProduit = new ArrayList<>();;
     Client client;
 
     /*********************************** Constructor ************************************/
@@ -35,10 +35,6 @@ public class Delivery {
         return state;
     }
 
-    public ArrayList<String> getListProduit() {
-        return listProduit;
-    }
-
     public Client getClient() {
         return client;
     }
@@ -46,8 +42,15 @@ public class Delivery {
     public String formattedProductList(){
 
         String listName = "";
-        for(String pro : listProduit) {
-            listName += "test\n";
+        for(Product pro : listProduit) {
+
+            String qty = "";
+
+            if (pro.getQuantity() > 1)
+                qty = " (" + pro.getQuantity() + ")";
+
+
+            listName += "→ " + pro.getTitle() + qty + "\n";
         }
 
         return listName;
@@ -67,14 +70,8 @@ public class Delivery {
         this.state = state;
     }
 
-    public void setListProduit(ArrayList<String> listProduit) {
-        this.listProduit = listProduit;
-    }
-
-    public void addProductName(String productName){
-
-
-        this.listProduit.add(productName);
+    public void addProductName(Product _product){
+        listProduit.add(_product);
     }
 
     public void setClient(Client client) {

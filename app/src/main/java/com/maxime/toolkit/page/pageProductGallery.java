@@ -50,6 +50,8 @@ public class pageProductGallery extends AppCompatActivity implements View.OnClic
 
         _dataManager = new DataManager();
 
+        //Intent.hasExtra(String name)
+
         pageProductGallery.ImageGalleryAdapter adapter = new pageProductGallery.ImageGalleryAdapter(this, _dataManager.getProducts());
         recyclerView.setAdapter(adapter);
 

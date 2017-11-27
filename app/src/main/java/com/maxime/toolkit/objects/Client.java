@@ -12,11 +12,10 @@ public class Client {
     String phone;
 
     String street;
-    String street2;
-    String city;
     String zip;
+    String city;
     String province;
-
+    String country;
 
     /*********************************** Constructor ************************************/
 
@@ -27,14 +26,14 @@ public class Client {
         this.phone = _phone;
     }
 
-    public Client(int _id, String _name, String _email, String _phone, String _street, String _street2, String _city, String _zip, String _province) {
+    public Client(int _id, String _name, String _email, String _phone, String _street, String _country, String _city, String _zip, String _province) {
         this.id = _id;
         this.name = _name;
         this.email = _email;
         this.phone = _phone;
 
         this.street = _street;
-        this.street2 = _street2;
+        this.country = _country;
         this.city = _city;
         this.zip = _zip;
         this.province = _province;
@@ -62,8 +61,8 @@ public class Client {
         return street;
     }
 
-    public String getStreet2() {
-        return street2;
+    public String getCountry() {
+        return country;
     }
 
     public String getCity() {
@@ -100,8 +99,8 @@ public class Client {
         this.street = street;
     }
 
-    public void setStreet2(String street2) {
-        this.street2 = street2;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public void setCity(String city) {

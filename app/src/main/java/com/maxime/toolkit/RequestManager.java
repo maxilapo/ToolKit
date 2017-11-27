@@ -27,9 +27,6 @@ public class RequestManager
     String GET = "GET";
     String POST = "POST";
     String URL = "http://10.0.2.2:3000/api/";
-    //String URL = "http://10.192.183.173:3000/api/";
-    //String URL = "http://255.255.224.0:3000/api/";
-
 
     public RequestManager() { }
 

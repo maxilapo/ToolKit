@@ -20,25 +20,9 @@ public class Product implements Parcelable{
 
     /*********************************** Constructor ************************************/
 
-    public Product(int _id, String _title, double _price) {
-        this.id = _id;
+    public Product(String _title, int _qty) {
         this.title = _title;
-        this.price = _price;
-    }
-
-    public Product(int _id, String _title, String _description, double _price) {
-        this.id = _id;
-        this.title = _title;
-        this.description = _description;
-        this.price = _price;
-    }
-
-    public Product(int _id, String _title, String _description, double _price, String _imageURL) {
-        this.id = _id;
-        this.title = _title;
-        this.description = _description;
-        this.price = _price;
-        this.imageURL = _imageURL;
+        this.quantity = _qty;
     }
 
     public Product(int _id, String _title, String _description, double _price, String _imageURL, double _rating) {

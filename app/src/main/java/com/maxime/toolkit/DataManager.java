@@ -34,6 +34,7 @@ public class DataManager {
         _requestManager = new RequestManager();
     }
 
+    /********************************** GET *******************************************/
     public Product getProductDetails(int _id) {
 
         String[] jsonResult = new String[1];
@@ -329,11 +330,11 @@ public class DataManager {
 
             //Find all the product name
             JSONArray jsonItemList = jsonDeliveryList.getJSONObject(i).getJSONArray("items");
-            Log.d("max_DATAMANAGER", "json resultLIST bro :" + jsonItemList.toString());
             for(int j=0; j<jsonItemList.length(); j++){
                 String productName = jsonItemList.getJSONObject(j).getString("name");
-                Log.d("max_DATAMANAGER", "NAME PRODUIT BRO :" + productName);
-                tempDelivery.addProductName(productName);
+                int productQty = jsonItemList.getJSONObject(j).getInt("quantity");
+                Product tempProduct = new Product(productName, productQty);
+                tempDelivery.addProductName(tempProduct);
             }
 
             deliveryArray.add(tempDelivery);
@@ -344,6 +345,8 @@ public class DataManager {
         return deliveryList;
     }
 
+
+    /********************************** POST *******************************************/
 
     public boolean addEvaluation (int productID, String name, int score, String comment) {
 
@@ -387,6 +390,88 @@ public class DataManager {
         return false;
     }
 
+    public Client addClient (String email, String firstname, String lastname, String phone, String adress, String address2,
+                             String city, String zip, String province) throws JSONException, ExecutionException, InterruptedException {
+
+        String[] jsonResult = new String[1];
+        JSONObject jsonParams = new JSONObject();
+
+        jsonParams.put("email", email);
+        jsonParams.put("firstname", firstname);
+        jsonParams.put("name", lastname);
+        jsonParams.put("address", adress);
+        jsonParams.put("city", city);
+        jsonParams.put("zip", zip);
+        jsonParams.put("country", "Canada");
+        jsonParams.put("state", province);
+        jsonParams.put("phone", phone);
+
+        Log.d("max_DATAMANAGER", "JSON new client : " +  jsonParams.toString());
+
+        jsonResult = _requestManager.httpRequest(POST, "clients/", jsonParams.toString());
+
+        JSONArray jsonClient = new JSONArray(jsonResult[0]);
+        for(int i=0; i<jsonClient.length(); i++)
+        {
+            if(jsonClient.getJSONObject(i).has("id")){
+                int id = jsonClient.getJSONObject(i).getInt("id");
+                return getClient(id);
+            }
+        }
+        return null;
+    }
+
+    public Client addSaleOrders (int clientID, double totalPrice, Product[] listProduit) throws JSONException, ExecutionException, InterruptedException {
+
+        String[] jsonResult = new String[1];
+        JSONObject jsonParams = new JSONObject();
+        JSONArray jsonArrayProduit = new JSONArray();
+
+        jsonParams.put("client_id", clientID);
+        jsonParams.put("amount_total", totalPrice);
+
+        for(Product pro : listProduit)
+        {
+            JSONObject jsonObjectProduit = new JSONObject();
+            jsonObjectProduit.put("id", pro.getID());
+            jsonObjectProduit.put("name", pro.getTitle());
+            jsonObjectProduit.put("list_price", pro.getPrice());
+            jsonObjectProduit.put("quantity", pro.getQuantity());
+
+            jsonArrayProduit.put(jsonObjectProduit);
+        }
+
+        jsonParams.put("items", jsonArrayProduit);
 
 
+        Log.d("max_DATAMANAGER", "JSON SALEORDERS : " +  jsonParams.toString());
+/*
+        jsonResult = _requestManager.httpRequest(POST, "clients/", jsonParams.toString());
+
+        JSONArray jsonClient = new JSONArray(jsonResult[0]);
+        for(int i=0; i<jsonClient.length(); i++)
+        {
+            if(jsonClient.getJSONObject(i).has("id")){
+                int id = jsonClient.getJSONObject(i).getInt("id");
+                return getClient(id);
+            }
+        }
+
+            {
+        "client_id": 7,
+        "amount_total": 37.43,
+        "items": [
+            {
+                "id": 15,
+                "name": "Contenant antistatique",
+                "list_price": 15,
+                "quantity": 2
+            }
+        ],
+        "id": 76
+    }
+
+        */
+        return null;
+    }
 }

@@ -9,10 +9,14 @@ import android.view.WindowManager;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.maxime.toolkit.DataManager;
 import com.maxime.toolkit.R;
+import com.maxime.toolkit.objects.Client;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
 
 public class pageCheckout extends AppCompatActivity implements View.OnClickListener {
 
@@ -63,47 +67,40 @@ public class pageCheckout extends AppCompatActivity implements View.OnClickListe
         if (id == R.id.pageCheckout_btnNext) {
 
             String email = txtEmail.getText().toString();
-            String firstname = txtEmail.getText().toString();
-            String lastname = txtEmail.getText().toString();
-            String phone = txtEmail.getText().toString();
-            String adress = txtEmail.getText().toString();
-            String adress2 = txtEmail.getText().toString();
-            String city = txtEmail.getText().toString();
-            String zip = txtEmail.getText().toString();
+            String firstname = txtFirstname.getText().toString();
+            String lastname = txtLastname.getText().toString();
+            String phone = txtPhone.getText().toString();
+            String adress = txtAddress.getText().toString();
+            String adress2 = txtAddress2.getText().toString();
+            String city = txtCity.getText().toString();
+            String zip = txtZIP.getText().toString();
             String province = cbProvince.getSelectedItem().toString();
 
-            JSONObject jsonCheckout = new JSONObject();
-
-            if (email != null) {
-
-
-                try {
-                    jsonCheckout.put("email", email);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            if (email.length() == 0 || firstname.length() == 0 || lastname.length() == 0 || phone.length() == 0 || adress.length() == 0 ||
+                    adress2.length() == 0 || city.length() == 0 || zip.length() == 0 || province.length() == 0) {
+                //Show UI about missing information
+                return;
             }
 
+            Intent intent = new Intent(this, pagePayment.class);
+            intent.putExtra("clientID", 7);
+            startActivity(intent);
 
-            Log.d("max_CHECKOUT", "JSon checkout = " + jsonCheckout.toString());
+            Log.d("max_CHECKOUT", "onClick, addClient");
+            /*DataManager _dataManager = new DataManager();
+            try {
+                Client newClient = _dataManager.addClient(email, firstname, lastname, phone, adress, adress2, city, zip, province);
 
-
-
-
-        //Intent intent = new Intent(this, pagePayment.class);
-        //intent.putExtra("productID", currentProduct.getID());
-        //startActivity(intent);
-        //startActivityForResult(intent, 1);
+                if (newClient != null) {
+                    Intent intent = new Intent(this, pagePayment.class);
+                    intent.putExtra("clientID", newClient.getId());
+                    startActivity(intent);
+                }
+            }
+            catch (JSONException e) { e.printStackTrace();}
+            catch (ExecutionException e) {e.printStackTrace();}
+            catch (InterruptedException e) {e.printStackTrace();}*/
 
         }
     }
-
-
-
-
-
-
-
-
 }

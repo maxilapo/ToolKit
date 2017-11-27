@@ -12,8 +12,10 @@
         android:id="@+id/cellDelivery_btnMaps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="false"
         android:layout_alignParentEnd="true"
-        android:layout_margin="10dp"
+        android:layout_below="@+id/cellDelivery_txtCountry"
+        android:layout_margin="5dp"
         app:srcCompat="@mipmap/ic_google_maps"/>
 
     <TextView
@@ -57,5 +59,36 @@
         android:textColor="#525252"
         android:textSize="12sp"
         android:textStyle="italic"/>
+
+    <TextView
+        android:id="@+id/cellDelivery_txtAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:text="tel tel rue"
+        android:textColor="#454545"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/cellDelivery_txtCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/cellDelivery_txtAddress"
+        android:layout_marginEnd="8dp"
+        android:text="Laval, H7V3T8"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/cellDelivery_txtCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/cellDelivery_txtCity"
+        android:layout_marginEnd="8dp"
+        android:text="TextView"
+        android:textSize="12sp"/>
 
 </RelativeLayout>
