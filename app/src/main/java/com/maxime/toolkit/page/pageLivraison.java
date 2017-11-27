@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.maxime.toolkit.DataManager;
 import com.maxime.toolkit.R;
+import com.maxime.toolkit.objects.Client;
+import com.maxime.toolkit.objects.Product;
 import com.maxime.toolkit.objects.SaleOrders;
 
 import org.json.JSONException;
@@ -136,22 +138,20 @@ public class pageLivraison extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-
-                //int position = getAdapterPosition();
+                int position = getAdapterPosition();
                 int id = view.getId();
 
-               // if (view.getTag() == null)
-               //     return;
+                if (id != R.id.cellDelivery_btnMaps)
+                    return;
 
-                //int productID = (int)view.getTag();
+                if(position != RecyclerView.NO_POSITION) {
+                    SaleOrders sale = mListSaleOrders[position];
+                    Client client = sale.getClient();
 
-                if (id == R.id.cellDelivery_btnMaps)
-                {
-
-                    String uri = String.format(Locale.ENGLISH, "geo:0,0?q=" + "3119 place alton gobloom");
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                    String clientAddress = client.getStreet() + ", " + client.getCity();
+                    String uri = String.format(Locale.ENGLISH, "geo:0,0?q=" + clientAddress);
+                    Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri));
                     startActivity(intent);
-
                 }
             }
         }

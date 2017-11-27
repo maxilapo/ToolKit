@@ -30,25 +30,27 @@ public class User
     }
 
     public Boolean isAdmin(){
-        return true;
+        //return true;
 
-       /* if (role == null)
+        if (role == null)
             return false;
 
         if (role.equals("admin"))
             return true;
         else
-            return false;*/
+            return false;
     }
 
     public Boolean isLivreur(){
+        return true;
+        /*
         if (role == null)
             return false;
 
         if (role.equals("livreur"))
             return true;
         else
-            return false;
+            return false;*/
     }
 
     public Boolean isConnected(){
