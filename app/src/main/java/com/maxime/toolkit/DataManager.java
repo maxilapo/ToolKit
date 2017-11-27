@@ -427,7 +427,7 @@ public class DataManager {
         return false;
     }
 
-    public Client addClient (String email, String firstname, String lastname, String phone, String adress, String address2,
+    public Client addClient (String email, String firstname, String lastname, String phone, String adress,
                              String city, String zip, String province) throws JSONException, ExecutionException, InterruptedException {
 
         String[] jsonResult = new String[1];

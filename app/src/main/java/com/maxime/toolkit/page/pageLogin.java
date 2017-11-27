@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.maxime.toolkit.DataManager;
 import com.maxime.toolkit.R;
+import com.maxime.toolkit.objects.Panier;
 import com.maxime.toolkit.objects.User;
 
 import org.json.JSONException;
@@ -89,6 +90,7 @@ public class pageLogin extends AppCompatActivity implements View.OnClickListener
         }
         else if(id == R.id.pageLogin_btnLogout){
             User.getInstance().resetUser();
+            Panier.getInstance().viderPanier();
             setupUI();
         }
     }

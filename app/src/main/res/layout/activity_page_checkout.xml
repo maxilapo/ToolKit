@@ -80,14 +80,6 @@
                 android:inputType="textPostalAddress"/>
 
             <EditText
-                android:id="@+id/pageCheckout_txtAddress2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Address"
-                android:inputType="textPersonName"/>
-
-            <EditText
                 android:id="@+id/pageCheckout_txtCity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

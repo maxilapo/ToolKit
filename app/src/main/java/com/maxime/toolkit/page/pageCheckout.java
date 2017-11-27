@@ -26,7 +26,6 @@ public class pageCheckout extends AppCompatActivity implements View.OnClickListe
     private TextView txtLastname;
     private TextView txtPhone;
     private TextView txtAddress;
-    private TextView txtAddress2;
     private TextView txtCity;
     private TextView txtZIP;
     private Spinner cbProvince;
@@ -49,7 +48,6 @@ public class pageCheckout extends AppCompatActivity implements View.OnClickListe
         txtLastname = (TextView) findViewById(R.id.pageCheckout_txtLastName);
         txtPhone = (TextView) findViewById(R.id.pageCheckout_txtPhone);
         txtAddress = (TextView) findViewById(R.id.pageCheckout_txtAddress);
-        txtAddress2 = (TextView) findViewById(R.id.pageCheckout_txtAddress2);
         txtCity = (TextView) findViewById(R.id.pageCheckout_txtCity);
         txtZIP = (TextView) findViewById(R.id.pageCheckout_txtZIP);
 
@@ -71,26 +69,21 @@ public class pageCheckout extends AppCompatActivity implements View.OnClickListe
         String lastname = txtLastname.getText().toString();
         String phone = txtPhone.getText().toString();
         String adress = txtAddress.getText().toString();
-        String adress2 = txtAddress2.getText().toString();
         String city = txtCity.getText().toString();
         String zip = txtZIP.getText().toString();
         String province = cbProvince.getSelectedItem().toString();
 
-        if (email.length() == 0 || firstname.length() == 0 || lastname.length() == 0 || phone.length() == 0 || adress.length() == 0 ||
-                adress2.length() == 0 || city.length() == 0 || zip.length() == 0 || province.length() == 0) {
+        if (email.length() == 0 || firstname.length() == 0 || lastname.length() == 0 || phone.length() == 0 ||
+                adress.length() == 0 || city.length() == 0 || zip.length() == 0 || province.length() == 0) {
             //Show UI about missing information
             return;
         }
-
-            /*Intent intent = new Intent(this, pagePayment.class);
-            intent.putExtra("clientID", 7);
-            startActivity(intent);*/
 
         Log.d(className, "pass validation");
 
         DataManager _dataManager = new DataManager();
         try {
-            Client newClient = _dataManager.addClient(email, firstname, lastname, phone, adress, adress2, city, zip, province);
+            Client newClient = _dataManager.addClient(email, firstname, lastname, phone, adress, city, zip, province);
 
             if (newClient != null) {
                 Log.d(className, "Client ID : " + newClient.getId());
